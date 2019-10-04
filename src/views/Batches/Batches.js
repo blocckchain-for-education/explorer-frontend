@@ -16,7 +16,7 @@ function BlockRow(props) {
         <ul>
           {batch.header.transaction_ids.map(transaction_id=>{
             return(
-              <li><Link to={`/transactions/${transaction_id}`} >{transaction_id}</Link></li>
+              <li><Link to={`/transactions/${transaction_id}`} >{transaction_id.substring(0,100)}...</Link></li>
             )
           })}
         </ul>

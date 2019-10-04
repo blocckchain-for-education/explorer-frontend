@@ -169,7 +169,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Total transactions:
+                  Total transactions: {"  "}
                   {this.state.transactions_all?                  
                     <span className="text-value">{this.state.transactions_all.length}</span>:
                     <span className="text-value">Loading</span>
@@ -217,18 +217,18 @@ class Dashboard extends Component {
           </Col>
         </Row>
         
-        <Row>
+        <Row style={{"fontSize":"11px"}}>
           <Col>
             <Card>
-              <CardHeader>Networks</CardHeader>
+              <CardHeader>Transactions {" & "} Blocks</CardHeader>
               <CardBody>
                 <Row>
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-info">
-                      <small className="text-muted">
-                       
+                      {/* <small className="text-muted"> */}
+
                         <Link to="/transactions/"> Realtime transactions</Link>
-                      </small>
+                      {/* </small> */}
                       <br />
                       {/* {this.state.transactions?(<strong className="h4">{this.state.transactions[0].header.block_num}</strong>):<strong className="h4">loading</strong>} */}
                     </div>
@@ -241,9 +241,9 @@ class Dashboard extends Component {
                 <Row>
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-info">
-                      <small className="text-muted">
+                      {/* <small className="text-muted"> */}
                         Realtime batches
-                      </small>
+                      {/* </small> */}
                       <br />
                     </div>
                   </Col>
@@ -255,9 +255,9 @@ class Dashboard extends Component {
                 <Row>
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-warning">
-                      <small className="text-muted">Realtime blocks</small>
-                      <br />
-                      Head blocks:{this.state.blocks?(<strong className="h4">{this.state.blocks[0].header.block_num}</strong>):<strong className="h4">loading</strong>}
+                      Realtime block
+                                       <br />
+                      Head blocks:{" "}{this.state.blocks?(<strong className="h4">{this.state.blocks[0].header.block_num}</strong>):<strong className="h4">loading</strong>}
                     </div>
                   </Col>
                   

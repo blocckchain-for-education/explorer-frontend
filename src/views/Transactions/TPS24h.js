@@ -92,7 +92,7 @@ class TPS24h extends Component {
     return (
       <div
         className="chart-wrapper"
-        style={{ height: 300 + "px", marginTop: 40 + "px" }}
+        style={{ height: 200 + "px", marginTop: 40 + "px" }}
       >
         <Line data={this.state.tps24h} options={tps24hOpts} height={300} />
       </div>

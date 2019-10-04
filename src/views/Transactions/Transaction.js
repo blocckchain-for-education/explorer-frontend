@@ -27,7 +27,7 @@ class Transaction extends Component {
     }
 
     return (
-      <div className="animated fadeIn">
+      <div className="animated fadeIn" style={{"fontSize":"11px"}}>
         <Row>
           <Col lg={12}>
             <Card>

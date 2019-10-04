@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Table } from "reactstrap";
+import { Table } from "reactstrap";
 function BlockRow(props) {
   const block = props.block;
   const txLink = `/blocks/${block.header_signature}`;
@@ -14,15 +14,18 @@ function BlockRow(props) {
       </td>
       <td>{block.header.consensus}</td>
       <td>{block.header.signer_public_key.substring(0, 15)}...</td>
-      <ul>
-        {block.header.batch_ids.map(batch_id => {
-          return (
-            <li>
-              <Link to={`/batches/${batch_id}`}>{batch_id}</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <td>
+        <ul>
+          {block.header.batch_ids.map(batch_id => {
+            return (
+              <li>
+                <Link to={`/batches/${batch_id}`}>{batch_id.substring(0,100)}...</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </td>
+     
     </tr>
   );
 }
@@ -36,7 +39,6 @@ class Blocks extends Component {
     }
     return (
       <div className="animated fadeIn">
-        <Row>
           <Table responsive hover>
             <thead>
               <tr>
@@ -53,7 +55,6 @@ class Blocks extends Component {
               ))}
             </tbody>
           </Table>
-        </Row>
       </div>
     );
   }
