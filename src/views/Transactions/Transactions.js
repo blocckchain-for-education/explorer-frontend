@@ -30,7 +30,7 @@ function TransactionRow(props) {
       </td>
       <td>{transaction.header.family_version}</td>
       <td>{transaction.header.signer_public_key.substring(0, 15)}...</td>
-      <td>{transaction.payload.substring(0, 100)}...</td>
+      <td>{window.atob(transaction.payload.substring(0, 100))}...</td>
       <td>
         <Link to={txLink}>
           <Badge color={getBadge(transaction.status)}>

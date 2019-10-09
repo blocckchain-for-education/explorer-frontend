@@ -141,11 +141,26 @@ class Transaction extends Component {
                 </strong>
               </CardHeader>
               <CardBody>
-                 { transaction.payload}
+                 {(transaction.payload)}
               </CardBody>
             </Card>
           </Col>
          </Row>
+        <Row>
+          <Col lg={12}>
+            <Card>
+              <CardHeader>
+                <strong>
+                  <i className="fa fa-newspaper-o"></i>{"  "}Payload decoded:{" "}
+                </strong>
+              </CardHeader>
+              <CardBody>
+                 { window.atob(transaction.payload)}
+              </CardBody>
+            </Card>
+          </Col>
+         </Row>
+
       
       </div>
     );
