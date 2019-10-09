@@ -4,7 +4,9 @@ import config from "./config/config";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const ROOT_URL = config.ROOT_URL;
-const responseBody = res => res.body;
+const responseBody = res => {
+  return res.body;
+};
 
 const requests = {
   del: url => superagent.del(`${ROOT_URL}${url}`).then(responseBody),
@@ -22,7 +24,7 @@ const Sawtooth = {
   getBlocks: limit => requests.get("/blocks?limit=" + limit),
   getBatches: limit => requests.get("/batches?limit=" + limit),
   getTransactions: limit => requests.get("/transactions?limit=" + limit),
-  getAllTransactions: limit => requests.get("/transactions"),
+  getAllTransactions: limit => requests.get("/transactions?limit=1000000"),
   getTransaction: id => requests.get("/transactions/"+id),
   getBlock: id => requests.get("/blocks/"+id),
   getBatch: id => requests.get("/batches/"+id)

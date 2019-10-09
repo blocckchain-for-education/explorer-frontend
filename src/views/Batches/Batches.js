@@ -31,7 +31,6 @@ class Batches extends Component {
   }
   render() {
     let batchesData = this.props.batches;
-    console.log(batchesData)
     if(!batchesData){
         return "Loading..."
     }

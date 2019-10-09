@@ -3,6 +3,9 @@ import { Pie } from "react-chartjs-2";
 import _ from 'lodash'
 const TransactionFamily = props => {
   let transactions = props.transactions;
+  if(!transactions){
+    return "loading..."
+  }
   let groupByFamily = _.groupBy(transactions,"header.family_name");
   let labels = [];
   let data = []

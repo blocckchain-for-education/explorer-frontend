@@ -54,7 +54,8 @@ class Dashboard extends Component {
       radioSelected: radioSelected
     });
   }
-  onMessage = ()=>{
+  onMessage = (data)=>{
+    console.log(data);
     this.getBlocks(10);
     this.getTransactions(10);
     this.getAllTransactions();
@@ -74,9 +75,12 @@ class Dashboard extends Component {
   }
   async getBlocks(limit){
     let blocks = await agent.Sawtooth.getBlocks(limit);
-    this.setState({
-      blocks:(blocks.data)
-    })
+    if(blocks){
+      this.setState({
+        blocks:(blocks.data)
+      })
+    }
+    
   }
   async getTransactions(limit){
     let transactions = await agent.Sawtooth.getTransactions(limit);
@@ -92,7 +96,6 @@ class Dashboard extends Component {
   }
   async getBatches(limit){
     let batches = await agent.Sawtooth.getBatches(limit);
-    console.log(batches);
     this.setState({
       batches:(batches.data)
     })
@@ -209,7 +212,7 @@ class Dashboard extends Component {
                     <TPS24h></TPS24h>
                   </Col>
                   <Col xs="12" sm="6" lg="6">
-                    <TransactionFamily transactions={this.state.transactions}/>
+                    <TransactionFamily transactions={this.state.transactions_all}/>
                   </Col>
                 </Row>
               </CardBody>
