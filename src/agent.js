@@ -4,8 +4,10 @@ import config from "./config/config";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const ROOT_URL = config.ROOT_URL;
+const SAWTOOTH_NODE = config.SAWTOOTH_NODE;
+
 const responseBody = res => {
-  return res.body;
+    return res.body;
 };
 
 const requests = {
@@ -18,6 +20,18 @@ const requests = {
       .post(`${ROOT_URL}${url}`, body)
       .set("authorization", sessionStorage.getItem("authorization"))
       .then(responseBody)
+};
+const requestsIP = {
+  get: url => superagent.get(`${url}`).then(responseBody),
+};
+const requestsNetwork = {
+  del: url => superagent.del(`${SAWTOOTH_NODE}${url}`).then(responseBody),
+  get: url => superagent.get(`${SAWTOOTH_NODE}${url}`).then(responseBody)
+
+};
+const SawtoothNetwork = {
+  getNodes: () => requestsNetwork.get("/peers"),
+  nodeInfo:(url)=>requestsIP.get()
 };
 
 const Sawtooth = {
@@ -32,5 +46,6 @@ const Sawtooth = {
 };
 
 export default {
-  Sawtooth
+  Sawtooth,
+  SawtoothNetwork
 };

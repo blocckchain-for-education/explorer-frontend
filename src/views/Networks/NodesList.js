@@ -1,6 +1,9 @@
 import React from "react";
 import { Progress } from "reactstrap";
 const NodesList = props => {
+  if(!props.nodes){
+    return "loading..."
+  }
   return props.nodes.map((node, idx) => {
     let flagClass = "flag-icon flag-icon-" + node.countryFlag + " h4 mb-0";
     return (

@@ -60,6 +60,7 @@ class Dashboard extends Component {
     this.getTransactions(10);
     this.getAllTransactions();
     this.getBatches(10);
+    this.getNodes();
   }
   handleOpen = () => {
     this.sendMessage('{"action":"subscribe"}')
@@ -71,8 +72,14 @@ class Dashboard extends Component {
     this.refWebSocket.sendMessage(message);
   }
   componentDidMount(){
-    this.getBlocks(10)
+    this.getBlocks(10);
+    
   }
+  async getNodes(){
+    let nodes = await agent.SawtoothNetwork.getNodes();
+  
+  }
+
   async getBlocks(limit){
     let blocks = await agent.Sawtooth.getBlocks(limit);
     if(blocks){
@@ -145,7 +152,7 @@ class Dashboard extends Component {
               </div>
             </Card>
           </Col>
-
+              
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
