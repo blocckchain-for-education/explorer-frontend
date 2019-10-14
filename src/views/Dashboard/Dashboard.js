@@ -54,6 +54,7 @@ class Dashboard extends Component {
       radioSelected: radioSelected
     });
   }
+  
   onMessage = (data)=>{
     console.log(data);
     this.getBlocks(10);
@@ -72,11 +73,15 @@ class Dashboard extends Component {
     this.refWebSocket.sendMessage(message);
   }
   componentDidMount(){
-    this.getBlocks(10);
-    this.getTransactions(10);
-    this.getAllTransactions();
-    this.getBatches(10);
-    this.getNodes();
+    let self = this;
+    setInterval(function{
+      self.getBlocks(10);
+      self.getTransactions(10);
+      self.getAllTransactions();
+      self.getBatches(10);
+      self.getNodes();
+    },2000)
+    
   }
   async getNodes(){
     let nodes = await agent.SawtoothNetwork.getNodes();
@@ -113,12 +118,12 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-         <Websocket url={config.websocket_url}
+         {/* <Websocket url={config.websocket_url}
                onOpen={this.handleOpen} 
               onMessage={this.onMessage}
               ref={Websocket => {
                 this.refWebSocket = Websocket;
-              }}/>
+              }}/> */}
         <Row>
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
