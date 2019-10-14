@@ -74,7 +74,7 @@ class Dashboard extends Component {
   }
   componentDidMount(){
     let self = this;
-    setInterval(function{
+    setInterval(function(){
       self.getBlocks(10);
       self.getTransactions(10);
       self.getAllTransactions();
