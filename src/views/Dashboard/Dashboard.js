@@ -61,7 +61,7 @@ class Dashboard extends Component {
     this.getTransactions(10);
     this.getAllTransactions();
     this.getBatches(10);
-    this.getNodes();
+    // this.getNodes();
   }
   handleOpen = () => {
     this.sendMessage('{"action":"subscribe"}')
@@ -79,7 +79,7 @@ class Dashboard extends Component {
       self.getTransactions(10);
       self.getAllTransactions();
       self.getBatches(10);
-      self.getNodes();
+      // self.getNodes();
     },2000)
     
   }
