@@ -4,7 +4,8 @@ import config from "./config/config";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const ROOT_URL = config.ROOT_URL;
-const SAWTOOTH_NODE = config.SAWTOOTH_NODE;
+const ES_URL = config.ES_URL;
+
 
 const responseBody = res => {
     return res.body;
@@ -25,12 +26,11 @@ const requestsIP = {
   get: url => superagent.get(`${url}`).then(responseBody),
 };
 const requestsNetwork = {
-  del: url => superagent.del(`${SAWTOOTH_NODE}${url}`).then(responseBody),
-  get: url => superagent.get(`${SAWTOOTH_NODE}${url}`).then(responseBody)
+  get: url => superagent.get(`${ES_URL}`).then(responseBody)
 
 };
 const SawtoothNetwork = {
-  getNodes: () => requestsNetwork.get("/peers"),
+  getNodes: () => requestsNetwork.get(),
   nodeInfo:(url)=>requestsIP.get()
 };
 

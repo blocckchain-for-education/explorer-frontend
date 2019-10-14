@@ -73,11 +73,14 @@ class Dashboard extends Component {
   }
   componentDidMount(){
     this.getBlocks(10);
-    
+    this.getTransactions(10);
+    this.getAllTransactions();
+    this.getBatches(10);
+    this.getNodes();
   }
   async getNodes(){
     let nodes = await agent.SawtoothNetwork.getNodes();
-  
+    console.log(nodes.hits.hits)
   }
 
   async getBlocks(limit){

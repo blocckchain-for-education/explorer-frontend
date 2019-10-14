@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav } from 'reactstrap';
+import {  UncontrolledDropdown, Nav } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
@@ -18,23 +18,25 @@ class DefaultHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 25, alt: '' }}
+          full={{ src: logo, width: 25, height: 25, alt: '' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: '' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
-        <Nav className="d-md-down-none" navbar>
+        <Nav className="d-md-down-none" navbar style={{paddingLeft:"15px"}}>
+          <a href="https://storage.v-chain.vn/ipfs/QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub/#/">          Storage Monitoring
+          </a>
         </Nav>
         <Nav className="ml-auto" navbar>
           <UncontrolledDropdown nav direction="down">
-            <DropdownToggle nav>
+            {/* <DropdownToggle nav>
               <img src={'../../assets/logo.png'} className="img-avatar" alt="logo" />
-            </DropdownToggle>
-            <DropdownMenu right>
+            </DropdownToggle> */}
+            {/* <DropdownMenu right>
               <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
               <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
               <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </UncontrolledDropdown>
         </Nav>
         <AppAsideToggler className="d-md-down-none" />
