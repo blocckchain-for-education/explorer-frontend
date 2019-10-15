@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Websocket from 'react-websocket';
 import agent from '../../agent'
 import { Link } from "react-router-dom";
 
@@ -15,7 +14,6 @@ import {
   Table
 } from "reactstrap";
 
-import config from '../../config/config'
 import NodesList from "../Networks/NodesList";
 import Transactions from "../Transactions/Transactions";
 import Blocks from "../Blocks/Blocks";
@@ -24,7 +22,6 @@ import Batches from "../Batches/Batches";
 import TransactionFamily from "../Transactions/TransactionFamily";
 import NodesMap from "../Networks/NodesMap";
 import TPS24h from "../Transactions/TPS24h";
-import nodes from './nodeMock'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -79,13 +76,60 @@ class Dashboard extends Component {
       self.getTransactions(10);
       self.getAllTransactions();
       self.getBatches(10);
-      // self.getNodes();
+      self.getNodes();
     },2000)
     
   }
   async getNodes(){
-    let nodes = await agent.SawtoothNetwork.getNodes();
-    console.log(nodes.hits.hits)
+    let nodes =  [
+      {
+        name: "Washington",
+        country: "JAPAN",
+        countryFlag: "us",
+        regiterTime: "Jul 10, 2019",
+        location:"40.80540,-74.02410",
+        endpoint:"159.65.223.173:8008",
+        usage: parseInt(Math.random() * (30 - 28) + 28),
+        time: Date.now(),
+        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago",
+      },
+      {
+        name: "Camberwell",
+        country: "Malaysia",
+        countryFlag: "gb",
+        regiterTime: "Jul 10, 2019",
+        location:"51.47420,-0.07972",
+        endpoint:"68.183.47.2:8008",
+        usage: parseInt(Math.random() * (30 - 28) + 28),
+        time: Date.now(),
+        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago",
+      },
+      {
+        name: "Hanoi",
+        country: "Viet Nam",
+        location:"40.80540,-74.02410",
+        endpoint:"203.171.20.82:8008",
+        countryFlag: "vn",
+        regiterTime: "Jul 10, 2019",
+        usage: parseInt(Math.random() * (43 - 41) + 41),
+        time: Date.now(),
+        lastActive: parseInt(Math.random() * (3 - 2) + 2) + " second ago",
+      },
+      {
+        name: "Pioneer",
+        country: "Viet Nam",
+        endpoint:"178.128.217.254:8008",
+        location:"1.32123,103.69500",
+        countryFlag: "sg",
+        regiterTime: "Jul 10, 2019",
+        usage: parseInt(Math.random() * (25 - 24) + 24),
+        time: Date.now(),
+        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago",
+      }
+    ];
+    this.setState({
+      nodes:nodes
+    })
   }
 
   async getBlocks(limit){
@@ -116,6 +160,7 @@ class Dashboard extends Component {
     })
   }
   render() {
+    let nodes = this.state.nodes;
     return (
       <div className="animated fadeIn">
          {/* <Websocket url={config.websocket_url}
@@ -130,7 +175,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  TPS Live/All time high:
+                  TPS/All time high:
                   <span className="text-value">12/1024</span>
                 </div>
               </CardBody>
@@ -301,6 +346,7 @@ class Dashboard extends Component {
                       className="table-outline mb-0 d-none d-sm-table"
                     >
                       <tbody>
+                        
                         <NodesList nodes={nodes}></NodesList>
                       </tbody>
                     </Table>

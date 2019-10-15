@@ -9,9 +9,13 @@ const NodesList = props => {
     return (
       <tr>
         <td className="text-center">
-          <div className="avatar">
-            <img src={node.image} className="img-avatar" alt="" />
-            <span className="avatar-status badge-success"></span>
+          <div className="avatar" style={{width:"142px"}}>
+            {node.endpoint}
+          </div>
+        </td>
+        <td className="text-center">
+          <div className="avatar" style={{width:"70px"}}>
+            {node.location}
           </div>
         </td>
         <td>

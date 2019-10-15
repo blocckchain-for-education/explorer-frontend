@@ -1,5 +1,4 @@
 import React from "react";
-import nictImage from '../../assets/nodes/nict.png'
 
 const { compose, withProps, withHandlers } = require("recompose");
 const {
@@ -29,29 +28,31 @@ const MapWithAMarkerClusterer = compose(
   withScriptjs,
   withGoogleMap
 )(props => (
-  <GoogleMap defaultZoom={3} defaultCenter={{ lat: 25.0391667, lng: 121.525 }}>
+  <GoogleMap defaultZoom={1} defaultCenter={{ lat: 25.0391667, lng: 121.525 }}>
     <MarkerClusterer
       onClick={props.onMarkerClustererClick}
       averageCenter
       enableRetinaIcons
       gridSize={60}
       defaultImageSize={1}
-      styles={[		
-        {		
-          url: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",		
-          height: 53,		
+      styles={[
+        {
+          url:
+            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
+          height: 53,
           width: 53
-       }]
-      }
-      
+        }
+      ]}
     >
       {props.markers.map(marker => (
         <Marker
           key={marker.id}
           position={{ lat: marker.latitude, lng: marker.longitude }}
-          icon={{
-            url: nictImage
-          }}
+          icon={
+            {
+              // url: nictImage
+            }
+          }
         />
       ))}
     </MarkerClusterer>
@@ -64,16 +65,30 @@ class NodesMap extends React.PureComponent {
   }
 
   componentDidMount() {
-   let data = [
+    let data = [
+      {
+        latitude: 1.32123,
+        longitude: 103.695,
+        id: Math.random(0, 1999)
+      },
+      {
+        latitude: 1.32123,
+        longitude: 103.695,
+        id: Math.random(0, 1999)
+      },
+      {
+        latitude: 1.32123,
+        longitude: 103.695,
+        id: Math.random(0, 1999)
+      },
       {
         longitude: 105.844258,
         latitude: 21.004467,
         id: Math.random(0, 1999)
       },
-      
       {
         longitude: 105.844258,
-        latitude:21.004467,
+        latitude: 21.004467,
         id: Math.random(0, 1999)
       },
       {
@@ -81,46 +96,42 @@ class NodesMap extends React.PureComponent {
         latitude: 21.004467,
         id: Math.random(0, 1999)
       },
+
       {
-        longitude:105.844258,
-        latitude: 21.004467,
+        latitude: 51.4742,
+        longitude: -0.07972,
         id: Math.random(0, 1999)
       },
       {
-        longitude: 139.488019,
-        latitude: 35.708170,
+        latitude: 51.4742,
+        longitude: -0.07972,
         id: Math.random(0, 1999)
       },
       {
-        longitude: 139.488019,
-        latitude: 35.708170,
+        latitude: 51.4742,
+        longitude: -0.07972,
         id: Math.random(0, 1999)
       },
       {
-        longitude: 139.488019,
-        latitude: 35.708170,
+        latitude: 40.8054,
+        longitude: -74.0241,
         id: Math.random(0, 1999)
       },
       {
-        longitude: 139.488019,
-        latitude: 35.708170,
+        latitude: 40.8054,
+        longitude: -74.0241,
         id: Math.random(0, 1999)
       },
       {
-        longitude: 101.715954,
-        latitude: 2.993071,
+        latitude: 40.8054,
+        longitude: -74.0241,
         id: Math.random(0, 1999)
       },
       {
-        longitude: 101.715954,
-        latitude: 2.993071,
+        latitude: 40.8054,
+        longitude: -74.0241,
         id: Math.random(0, 1999)
-      },
-      {
-        longitude: 101.715954,
-        latitude: 2.993071,
-        id: Math.random(0, 1999)
-      },
+      }
     ];
 
     this.setState({ markers: data });
