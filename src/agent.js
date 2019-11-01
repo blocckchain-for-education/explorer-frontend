@@ -29,6 +29,14 @@ const requestsNetwork = {
   get: url => superagent.get(`${ES_URL}`).then(responseBody)
 
 };
+
+const requestES = {
+  get: url => superagent.get(`${ES_URL}${url}`).then(responseBody)
+
+};
+const ES = {
+  getAllDocs: () => requestES.get("/_stats" ),
+}
 const SawtoothNetwork = {
   getNodes: () => requestsNetwork.get(),
   nodeInfo:(url)=>requestsIP.get()
@@ -45,7 +53,10 @@ const Sawtooth = {
 
 };
 
+
+
 export default {
   Sawtooth,
-  SawtoothNetwork
+  SawtoothNetwork,
+  ES
 };

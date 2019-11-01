@@ -84,6 +84,7 @@ class Dashboard extends Component {
       self.getAllTransactions();
       self.getBatches(10);
       self.getNodes();
+      self.countDocuments();
     }, 2000);
   }
   async getNodes() {
@@ -156,6 +157,13 @@ class Dashboard extends Component {
     this.setState({
       MAINNET:!this.state.MAINNET
     })
+  }
+  async countDocuments() {
+    let countDocs = await agent.ES.getAllDocs();
+    console.log(countDocs);
+    this.setState({
+      countDocs: countDocs._all.total.docs.count
+    });
   }
   async getAllTransactions() {
     let transactions = await agent.Sawtooth.getAllTransactions();
@@ -259,9 +267,9 @@ class Dashboard extends Component {
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
                   Total transactions: {"  "}
-                  {this.state.transactions_all ? (
+                  {this.state.countDocs ? (
                     <span className="text-value">
-                      {this.state.transactions_all.length}
+                      {this.state.countDocs}
                     </span>
                   ) : (
                     <span className="text-value">Loading</span>
