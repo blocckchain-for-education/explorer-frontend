@@ -94,7 +94,7 @@ class Dashboard extends Component {
         countryFlag: "us",
         regiterTime: "Jul 10, 2019",
         location: "40.80540,-74.02410",
-        endpoint: "159.65.223.173:8008",
+        endpoint: "159.65.223.173",
         usage: parseInt(Math.random() * (30 - 28) + 28),
         time: Date.now(),
         lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
@@ -105,7 +105,7 @@ class Dashboard extends Component {
         countryFlag: "gb",
         regiterTime: "Jul 10, 2019",
         location: "51.47420,-0.07972",
-        endpoint: "68.183.47.2:8008",
+        endpoint: "68.183.47.2",
         usage: parseInt(Math.random() * (30 - 28) + 28),
         time: Date.now(),
         lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
@@ -114,7 +114,7 @@ class Dashboard extends Component {
         name: "Hanoi",
         country: "Viet Nam",
         location: "40.80540,-74.02410",
-        endpoint: "203.171.20.82:8008",
+        endpoint: "203.171.20.82",
         countryFlag: "vn",
         regiterTime: "Jul 10, 2019",
         usage: parseInt(Math.random() * (43 - 41) + 41),
@@ -124,7 +124,7 @@ class Dashboard extends Component {
       {
         name: "Pioneer",
         country: "Viet Nam",
-        endpoint: "178.128.217.254:8008",
+        endpoint: "178.128.217.254",
         location: "1.32123,103.69500",
         countryFlag: "sg",
         regiterTime: "Jul 10, 2019",
@@ -291,9 +291,9 @@ class Dashboard extends Component {
                   </Col>
                   <Col xs="12" sm="6" lg="6">
                     <CardTitle className="mb-0">
-                      Transactions family (24H){" "}
+                      Transactions family (1000 txs){" "}
                     </CardTitle>
-                    <div className="small text-muted">October 2 2019</div>
+                    {/* <div className="small text-muted">October 2 2019</div> */}
                   </Col>
                 </Row>
                 <Row>
