@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import agent from '../../agent'
+import agent from "../../agent";
 import { Link } from "react-router-dom";
 
 import {
@@ -11,7 +11,8 @@ import {
   Col,
   Progress,
   Row,
-  Table
+  Table,
+
 } from "reactstrap";
 
 import NodesList from "../Networks/NodesList";
@@ -33,10 +34,12 @@ class Dashboard extends Component {
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
-      blocks:null,
-      transactions:null,
-      transactions_all:null,
-      batches:null
+      blocks: null,
+      transactions: null,
+      transactions_all: null,
+      batches: null,
+      networkDropdown: false,
+      MAINNET:true
     };
   }
 
@@ -45,130 +48,150 @@ class Dashboard extends Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
-
+  chooseNetwork = () => {
+    this.setState({
+      networkDropdown: !this.state.networkDropdown
+    });
+  };
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected
     });
   }
-  
-  onMessage = (data)=>{
+
+  onMessage = data => {
     console.log(data);
     this.getBlocks(10);
     this.getTransactions(10);
     this.getAllTransactions();
     this.getBatches(10);
     // this.getNodes();
-  }
+  };
   handleOpen = () => {
-    this.sendMessage('{"action":"subscribe"}')
-  }
+    this.sendMessage('{"action":"subscribe"}');
+  };
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
   );
-  sendMessage = (message)=>{
+  sendMessage = message => {
     this.refWebSocket.sendMessage(message);
-  }
-  componentDidMount(){
+  };
+  componentDidMount() {
     let self = this;
-    setInterval(function(){
+    setInterval(function() {
       self.getBlocks(10);
       self.getTransactions(10);
       self.getAllTransactions();
       self.getBatches(10);
       self.getNodes();
-    },2000)
-    
+    }, 2000);
   }
-  async getNodes(){
-    let nodes =  [
+  async getNodes() {
+    let nodes = [
       {
         name: "Washington",
         country: "JAPAN",
         countryFlag: "us",
         regiterTime: "Jul 10, 2019",
-        location:"40.80540,-74.02410",
-        endpoint:"159.65.223.173:8008",
+        location: "40.80540,-74.02410",
+        endpoint: "159.65.223.173:8008",
         usage: parseInt(Math.random() * (30 - 28) + 28),
         time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago",
+        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
       },
       {
         name: "Camberwell",
         country: "Malaysia",
         countryFlag: "gb",
         regiterTime: "Jul 10, 2019",
-        location:"51.47420,-0.07972",
-        endpoint:"68.183.47.2:8008",
+        location: "51.47420,-0.07972",
+        endpoint: "68.183.47.2:8008",
         usage: parseInt(Math.random() * (30 - 28) + 28),
         time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago",
+        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
       },
       {
         name: "Hanoi",
         country: "Viet Nam",
-        location:"40.80540,-74.02410",
-        endpoint:"203.171.20.82:8008",
+        location: "40.80540,-74.02410",
+        endpoint: "203.171.20.82:8008",
         countryFlag: "vn",
         regiterTime: "Jul 10, 2019",
         usage: parseInt(Math.random() * (43 - 41) + 41),
         time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 2) + 2) + " second ago",
+        lastActive: parseInt(Math.random() * (3 - 2) + 2) + " second ago"
       },
       {
         name: "Pioneer",
         country: "Viet Nam",
-        endpoint:"178.128.217.254:8008",
-        location:"1.32123,103.69500",
+        endpoint: "178.128.217.254:8008",
+        location: "1.32123,103.69500",
         countryFlag: "sg",
         regiterTime: "Jul 10, 2019",
         usage: parseInt(Math.random() * (25 - 24) + 24),
         time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago",
+        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
       }
     ];
     this.setState({
-      nodes:nodes
-    })
+      nodes: nodes
+    });
   }
 
-  async getBlocks(limit){
+  async getBlocks(limit) {
     let blocks = await agent.Sawtooth.getBlocks(limit);
-    if(blocks){
+    if (blocks) {
       this.setState({
-        blocks:(blocks.data)
-      })
+        blocks: blocks.data
+      });
     }
-    
   }
-  async getTransactions(limit){
+  async getTransactions(limit) {
     let transactions = await agent.Sawtooth.getTransactions(limit);
     this.setState({
-      transactions:(transactions.data)
+      transactions: transactions.data
+    });
+  }
+  changeNetwork = ()=>{
+    this.setState({
+      MAINNET:!this.state.MAINNET
     })
   }
-  async getAllTransactions(){
+  async getAllTransactions() {
     let transactions = await agent.Sawtooth.getAllTransactions();
     this.setState({
-      transactions_all:(transactions.data)
-    })
+      transactions_all: transactions.data
+    });
   }
-  async getBatches(limit){
+  async getBatches(limit) {
     let batches = await agent.Sawtooth.getBatches(limit);
     this.setState({
-      batches:(batches.data)
-    })
+      batches: batches.data
+    });
   }
   render() {
     let nodes = this.state.nodes;
     return (
       <div className="animated fadeIn">
-         {/* <Websocket url={config.websocket_url}
+        {/* <Websocket url={config.websocket_url}
                onOpen={this.handleOpen} 
               onMessage={this.onMessage}
               ref={Websocket => {
                 this.refWebSocket = Websocket;
               }}/> */}
+        {/* <Row style={{paddingBottom:10}}>
+          <Dropdown
+            isOpen={this.state.networkDropdown}
+            toggle={this.chooseNetwork}
+          >
+            <DropdownToggle caret>Choose Network</DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={this.changeNetwork}>TESTNET</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem onClick={this.changeNetwork}>MAINNET</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </Row> */}
         <Row>
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
@@ -205,17 +228,20 @@ class Dashboard extends Component {
               </div>
             </Card>
           </Col>
-              
+
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Head block: {" "}
-                  {this.state.blocks?                  
-                    <span className="text-value">{this.state.blocks[0].header.block_num}</span>:
+                  Head block:{" "}
+                  {this.state.blocks ? (
+                    <span className="text-value">
+                      {this.state.blocks[0].header.block_num}
+                    </span>
+                  ) : (
                     <span className="text-value">Loading</span>
-                  }
+                  )}
                 </div>
               </CardBody>
               <div
@@ -233,10 +259,13 @@ class Dashboard extends Component {
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
                   Total transactions: {"  "}
-                  {this.state.transactions_all?                  
-                    <span className="text-value">{this.state.transactions_all.length}</span>:
+                  {this.state.transactions_all ? (
+                    <span className="text-value">
+                      {this.state.transactions_all.length}
+                    </span>
+                  ) : (
                     <span className="text-value">Loading</span>
-                  }
+                  )}
                 </div>
               </CardBody>
               <div
@@ -248,7 +277,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-        
+
         <Row>
           <Col>
             <Card>
@@ -272,15 +301,17 @@ class Dashboard extends Component {
                     <TPS24h></TPS24h>
                   </Col>
                   <Col xs="12" sm="6" lg="6">
-                    <TransactionFamily transactions={this.state.transactions_all}/>
+                    <TransactionFamily
+                      transactions={this.state.transactions_all}
+                    />
                   </Col>
                 </Row>
               </CardBody>
             </Card>
           </Col>
         </Row>
-        
-        <Row style={{"fontSize":"11px"}}>
+
+        <Row style={{ fontSize: "11px" }}>
           <Col>
             <Card>
               <CardHeader>Transactions {" & "} Blocks</CardHeader>
@@ -290,7 +321,7 @@ class Dashboard extends Component {
                     <div className="callout callout-info">
                       {/* <small className="text-muted"> */}
 
-                        <Link to="/transactions/"> Realtime transactions</Link>
+                      <Link to="/transactions/"> Realtime transactions</Link>
                       {/* </small> */}
                       <br />
                       {/* {this.state.transactions?(<strong className="h4">{this.state.transactions[0].header.block_num}</strong>):<strong className="h4">loading</strong>} */}
@@ -305,7 +336,7 @@ class Dashboard extends Component {
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-info">
                       {/* <small className="text-muted"> */}
-                        Realtime batches
+                      Realtime batches
                       {/* </small> */}
                       <br />
                     </div>
@@ -319,15 +350,21 @@ class Dashboard extends Component {
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-warning">
                       Realtime block
-                                       <br />
-                      Head blocks:{" "}{this.state.blocks?(<strong className="h4">{this.state.blocks[0].header.block_num}</strong>):<strong className="h4">loading</strong>}
+                      <br />
+                      Head blocks:{" "}
+                      {this.state.blocks ? (
+                        <strong className="h4">
+                          {this.state.blocks[0].header.block_num}
+                        </strong>
+                      ) : (
+                        <strong className="h4">loading</strong>
+                      )}
                     </div>
                   </Col>
-                  
                 </Row>
                 <ul>
-                    <Blocks blocks={this.state.blocks} />
-                  </ul>
+                  <Blocks blocks={this.state.blocks} />
+                </ul>
                 <br />
               </CardBody>
             </Card>
@@ -346,7 +383,6 @@ class Dashboard extends Component {
                       className="table-outline mb-0 d-none d-sm-table"
                     >
                       <tbody>
-                        
                         <NodesList nodes={nodes}></NodesList>
                       </tbody>
                     </Table>
@@ -359,7 +395,6 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-      
       </div>
     );
   }
