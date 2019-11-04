@@ -39,7 +39,8 @@ class Dashboard extends Component {
       transactions_all: null,
       batches: null,
       networkDropdown: false,
-      MAINNET:true
+      MAINNET:true,
+      indices:null
     };
   }
 
@@ -60,7 +61,7 @@ class Dashboard extends Component {
   }
 
   onMessage = data => {
-    console.log(data);
+    // console.log(data);
     this.getBlocks(10);
     this.getTransactions(10);
     this.getAllTransactions();
@@ -160,9 +161,11 @@ class Dashboard extends Component {
   }
   async countDocuments() {
     let countDocs = await agent.ES.getAllDocs();
-    console.log(countDocs);
+    
+    // console.log(countDocs);
     this.setState({
-      countDocs: countDocs._all.total.docs.count
+      countDocs: countDocs._all.total.docs.count,
+      indices:countDocs.indices
     });
   }
   async getAllTransactions() {
@@ -293,7 +296,7 @@ class Dashboard extends Component {
                 <Row>
                   <Col xs="12" sm="6" lg="6">
                     <CardTitle className="mb-0">
-                      Transactions per second (24H){" "}
+                      Transactions Per App (All time)
                     </CardTitle>
                     <div className="small text-muted">October 2 2019</div>
                   </Col>
@@ -306,7 +309,7 @@ class Dashboard extends Component {
                 </Row>
                 <Row>
                   <Col xs="12" sm="6" lg="6">
-                    <TPS24h></TPS24h>
+                    <TPS24h indices={this.state.indices}></TPS24h>
                   </Col>
                   <Col xs="12" sm="6" lg="6">
                     <TransactionFamily

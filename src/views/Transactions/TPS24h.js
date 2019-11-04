@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Line } from "react-chartjs-2";
 import { getStyle, hexToRgba } from "@coreui/coreui/dist/js/coreui-utilities";
-import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
+import { Spinner,Row,Col } from 'reactstrap';
+import { Pie } from "react-chartjs-2";
 
 const brandInfo = getStyle("--info");
 function random(min, max) {
@@ -15,54 +15,6 @@ for (var i = 0; i <= 100; i++) {
   data1.push(random(50, 200));
 }
   
-const tps24hOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips,
-    intersect: true,
-    mode: "index",
-    position: "nearest",
-    callbacks: {
-      labelColor: function(tooltipItem, chart) {
-        return {
-          backgroundColor:
-            chart.data.datasets[tooltipItem.datasetIndex].borderColor
-        };
-      }
-    }
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          drawOnChartArea: false
-        }
-      }
-    ],
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250
-        }
-      }
-    ]
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3
-    }
-  }
-};
 
 class TPS24h extends Component {
   constructor(props) {
@@ -89,12 +41,45 @@ class TPS24h extends Component {
   }
 
   render() {
+    let indices  = this.props.indices
+    if(!this.props.indices){
+      return (<Row style={{textAlign:"center"}}>
+      <Col sm="12" md={{ size: 6, offset: 3 }}>
+      <Spinner color="primary" style={{width:"100px",height:"100px"}}/>
+
+      </Col>
+
+    </Row>)
+    }
+    let labels = [];
+    let data = [];
+    var other = 0;
+    for (var key in indices) {
+      if (indices.hasOwnProperty(key) && indices[key].total.docs.count>1000 ) {
+        labels.push(key);
+        data.push(indices[key].total.docs.count)
+      }else{
+        other +=indices[key].total.docs.count;
+      }
+  }
+    labels.push("Other");
+    data.push(other);
+    let pieData = {
+      labels:labels,
+      datasets:[
+        {
+          data:data,
+          backgroundColor: ['#FF6384','#4BC0C0','#FFCE56','#E7E9ED','#36A2EB',],
+          hoverBackgroundColor: ['#FF6384','#4BC0C0','#FFCE56','#E7E9ED','#36A2EB',]
+        }
+      ]
+    }
     return (
       <div
         className="chart-wrapper"
         style={{ height: 200 + "px", marginTop: 40 + "px" }}
       >
-        <Line data={this.state.tps24h} options={tps24hOpts} height={300} />
+         <Pie height={100} data={pieData} />
       </div>
     );
   }

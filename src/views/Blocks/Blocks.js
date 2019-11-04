@@ -51,7 +51,7 @@ class Blocks extends Component {
             </thead>
             <tbody>
               {blocksData.map((block, index) => (
-                <BlockRow key={index} block={block} />
+                <BlockRow key={Math.random()} block={block} />
               ))}
             </tbody>
           </Table>

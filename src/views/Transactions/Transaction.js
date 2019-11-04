@@ -11,6 +11,7 @@ class Transaction extends Component {
   }
   componentDidMount() {
     this.getTransaction();
+    
   }
   async getTransaction() {
     let transaction = await agent.Sawtooth.getTransaction(
@@ -21,6 +22,7 @@ class Transaction extends Component {
     });
   }
   render() {
+    
     let transaction = this.state.transaction;
     if (!this.state.transaction) {
       return "Loading...";

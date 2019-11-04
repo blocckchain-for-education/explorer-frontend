@@ -1,18 +1,27 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
-import _ from 'lodash'
+import _ from 'lodash';
+import { Spinner,Row,Col } from 'reactstrap';
+
 const TransactionFamily = props => {
   let transactions = props.transactions;
   if(!transactions){
-    return "loading..."
+    return (<Row style={{textAlign:"center"}}>
+      <Col sm="12" md={{ size: 6, offset: 3 }}>
+      <Spinner color="primary" style={{width:"100px",height:"100px"}}/>
+
+      </Col>
+
+    </Row>)
   }
   let groupByFamily = _.groupBy(transactions,"header.family_name");
   let labels = [];
-  let data = []
+  let data = [];
   for(var k in groupByFamily){
     labels.push(k);
     data.push(groupByFamily[k].length)
   } 
+
   let pieData = {
     labels:labels,
     datasets:[
@@ -24,6 +33,7 @@ const TransactionFamily = props => {
     ]
   }
   return (
+    
     <div className="chart-wrapper"  >
       <Pie height={100} data={pieData} />
     </div>
