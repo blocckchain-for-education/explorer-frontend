@@ -1,8 +1,17 @@
 import React from "react";
-import { Progress } from "reactstrap";
+import { Progress,Spinner,Row,Col } from "reactstrap";
 const NodesList = props => {
   if(!props.nodes){
-    return "loading..."
+    return (
+      <Row style={{ textAlign: "center" }}>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+          <Spinner
+            color="primary"
+            style={{ width: "50px", height: "50px" }}
+          />
+        </Col>
+      </Row>
+    );
   }
   return props.nodes.map((node, idx) => {
     let flagClass = "flag-icon flag-icon-" + node.countryFlag + " h4 mb-0";

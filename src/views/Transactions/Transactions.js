@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Table } from "reactstrap";
+import { Badge, Table,Spinner,Row,Col } from "reactstrap";
 
 function TransactionRow(props) {
   const transaction = props.transaction;
@@ -46,7 +46,16 @@ class Transactions extends Component {
   render() {
     let transactionsData = this.props.transactions;
     if (!transactionsData) {
-      return "Loading...";
+      return (
+        <Row style={{ textAlign: "center" }}>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Spinner
+              color="primary"
+              style={{ width: "50px", height: "50px" }}
+            />
+          </Col>
+        </Row>
+      );
     }
     return (
       <div className="animated fadeIn" style={{"fontSize":"11px"}}>

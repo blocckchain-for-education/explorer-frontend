@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import agent from "../../agent";
 import { Link } from "react-router-dom";
-
 import {
   ButtonGroup,
   Card,
@@ -12,7 +11,7 @@ import {
   Progress,
   Row,
   Table,
-
+  Spinner
 } from "reactstrap";
 
 import NodesList from "../Networks/NodesList";
@@ -71,9 +70,18 @@ class Dashboard extends Component {
   handleOpen = () => {
     this.sendMessage('{"action":"subscribe"}');
   };
-  loading = () => (
-    <div className="animated fadeIn pt-1 text-center">Loading...</div>
-  );
+  loading = () => 
+    (
+      <Row style={{ textAlign: "center" }}>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+          <Spinner
+            color="primary"
+            style={{ width: "50px", height: "50px" }}
+          />
+        </Col>
+      </Row>
+    );
+
   sendMessage = message => {
     this.refWebSocket.sendMessage(message);
   };

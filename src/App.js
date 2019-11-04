@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-// import { renderRoutes } from 'react-router-config';
+import { Spinner,Row,Col } from 'reactstrap';
 import './App.scss';
 
-const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+const loading = () => (
+  <Row style={{ textAlign: "center" }}>
+    <Col sm="12" md={{ size: 6, offset: 3 }}>
+      <Spinner
+        color="primary"
+        style={{ width: "50px", height: "50px" }}
+      />
+    </Col>
+  </Row>
+);
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));

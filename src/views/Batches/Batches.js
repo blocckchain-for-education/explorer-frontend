@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Table } from "reactstrap";
+import { Row, Table, Spinner, Col } from "reactstrap";
 function BlockRow(props) {
   const batch = props.batch;
   const txLink = `/blocks/${batch.header_signature}`;
@@ -10,29 +10,40 @@ function BlockRow(props) {
       <th scope="row">
         <Link to={txLink}>{batch.header_signature.substring(0, 15)}...</Link>
       </th>
-     
+
       <td>{batch.header.signer_public_key.substring(0, 47)}...</td>
       <td>
         <ul>
-          {batch.header.transaction_ids.map(transaction_id=>{
-            return(
-              <li><Link to={`/transactions/${transaction_id}`} >{transaction_id.substring(0,100)}...</Link></li>
-            )
+          {batch.header.transaction_ids.map(transaction_id => {
+            return (
+              <li>
+                <Link to={`/transactions/${transaction_id}`}>
+                  {transaction_id.substring(0, 100)}...
+                </Link>
+              </li>
+            );
           })}
         </ul>
       </td>
-
     </tr>
   );
 }
 
 class Batches extends Component {
-  componentDidMount() {
-  }
+  componentDidMount() {}
   render() {
     let batchesData = this.props.batches;
-    if(!batchesData){
-        return "Loading..."
+    if (!batchesData) {
+      return (
+        <Row style={{ textAlign: "center" }}>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Spinner
+              color="primary"
+              style={{ width: "50px", height: "50px" }}
+            />
+          </Col>
+        </Row>
+      );
     }
     return (
       <div className="animated fadeIn">

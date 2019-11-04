@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Table } from "reactstrap";
+import { Row, Table, Spinner, Col } from "reactstrap";
 function BlockRow(props) {
   const block = props.block;
   const txLink = `/blocks/${block.header_signature}`;
@@ -35,7 +35,16 @@ class Blocks extends Component {
   render() {
     let blocksData = this.props.blocks;
     if (!blocksData) {
-      return "Loading...";
+      return (
+        <Row style={{ textAlign: "center" }}>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Spinner
+              color="primary"
+              style={{ width: "50px", height: "50px" }}
+            />
+          </Col>
+        </Row>
+      );
     }
     return (
       <div className="animated fadeIn">

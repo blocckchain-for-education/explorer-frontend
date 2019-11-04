@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
+import { Card, CardBody, CardHeader, Col, Row, Table ,Spinner} from "reactstrap";
 import agent from "../../agent";
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,16 @@ class Block extends Component {
 
     // const transactionDetails = transaction ? Object.entries(transaction) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
     if (!this.state.block) {
-      return "Loading...";
+      return (
+        <Row style={{ textAlign: "center" }}>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Spinner
+              color="primary"
+              style={{ width: "50px", height: "50px" }}
+            />
+          </Col>
+        </Row>
+      );
     }
 
     return (

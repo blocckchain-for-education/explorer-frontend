@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Container,Spinner,Row,Col } from 'reactstrap';
 
 import {
   AppAside,
@@ -19,7 +19,16 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
 
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  loading = () => (
+    <Row style={{ textAlign: "center" }}>
+      <Col sm="12" md={{ size: 6, offset: 3 }}>
+        <Spinner
+          color="primary"
+          style={{ width: "50px", height: "50px" }}
+        />
+      </Col>
+    </Row>
+  );
 
   signOut(e) {
     e.preventDefault()

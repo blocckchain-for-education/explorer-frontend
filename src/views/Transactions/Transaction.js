@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
+import { Spinner, Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
 import agent from "../../agent";
 
 class Transaction extends Component {
@@ -25,7 +25,16 @@ class Transaction extends Component {
     
     let transaction = this.state.transaction;
     if (!this.state.transaction) {
-      return "Loading...";
+      return (
+        <Row style={{ textAlign: "center" }}>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Spinner
+              color="primary"
+              style={{ width: "50px", height: "50px" }}
+            />
+          </Col>
+        </Row>
+      );
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
+import { Spinner,Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
 import agent from "../../agent";
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,13 @@ class Batch extends Component {
 
     // const transactionDetails = transaction ? Object.entries(transaction) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
     if (!this.state.batch) {
-      return "Loading...";
+      return (<Row style={{textAlign:"center"}}>
+      <Col sm="12" md={{ size: 6, offset: 3 }}>
+      <Spinner color="primary" style={{width:"100px",height:"100px"}}/>
+
+      </Col>
+
+    </Row>)
     }
 
     return (
