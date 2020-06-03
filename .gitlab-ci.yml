@@ -44,8 +44,6 @@ build:
 deliveryToStage:
   stage: deliveryToStage
   image: docker:latest
-  tags:
-    - datochain
   only:
     - "master"
   services:
