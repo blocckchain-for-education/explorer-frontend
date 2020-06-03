@@ -8,7 +8,7 @@ COPY package*.json ./
 
 COPY . .
 
-
+RUN npm rebuild node-sass
 RUN npm run build
 RUN npm install -g serve
 
