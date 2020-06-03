@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: monitoring-sawtooth
+spec:
+  rules: 
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: monitoring-sawtooth
+          servicePort: 5000

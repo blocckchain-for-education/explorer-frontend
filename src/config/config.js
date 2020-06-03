@@ -1,6 +1,6 @@
 if (process.env.REACT_APP_NODE_ENV !== "production") {
   module.exports = {
-    ROOT_URL: "https://v-chain.vn/sawtooth/api_docker",
+    ROOT_URL: "sawtooth:8008",
     SAWTOOTH_NODE:"https://v-chain.vn/sawtooth/api",
     ES_URL:"https://v-chain.vn/elasticsearch",
     devMode: true,
@@ -9,8 +9,8 @@ if (process.env.REACT_APP_NODE_ENV !== "production") {
   
 } else {
   module.exports = {
-    ROOT_URL: "https://v-chain.vn/sawtooth/api_docker",
-    devMode: true,
+    ROOT_URL: "sawtooth:8008",
+    devMode: false,
     websocket_url:"wss:178.128.217.110:8008/subscriptions",
     ES_URL:"https://v-chain.vn/elasticsearch"
   };
