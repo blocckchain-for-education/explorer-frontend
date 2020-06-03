@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: monitoring-sawtooth
-        image: registry.gitlab.com/bkblockchain/bksupplychain/platform/monitoring-dashboard:56c1aa94
+        image: registry.gitlab.com/bkblockchain/bksupplychain/platform/monitoring-dashboard:e70700e6
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
