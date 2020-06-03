@@ -7,8 +7,6 @@ stages:
 install_dependencies:
   image: node:latest
   stage: install_dependencies
-  tags:
-    - datochain
   cache: 
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
@@ -22,8 +20,6 @@ install_dependencies:
 build:
   stage: build
   image: docker:18.09.8-dind
-  tags:
-    - datochain
   cache: 
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
