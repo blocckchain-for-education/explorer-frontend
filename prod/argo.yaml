@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production-hosting-frontend
+  name: monitoring-dashboard
   namespace: argocd
 spec:
   project: default

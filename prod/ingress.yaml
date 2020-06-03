@@ -4,7 +4,8 @@ metadata:
   name: monitoring-sawtooth
 spec:
   rules: 
-  - http:
+  - host: live.v-chain.vn 
+    http:
       paths:
       - path: /
         backend:
