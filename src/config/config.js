@@ -1,6 +1,6 @@
 if (process.env.REACT_APP_NODE_ENV !== "production") {
   module.exports = {
-    ROOT_URL: "sawtooth:8008",
+    ROOT_URL: "https://live.v-chain.vn/api",
     SAWTOOTH_NODE:"https://v-chain.vn/sawtooth/api",
     ES_URL:"https://v-chain.vn/elasticsearch",
     devMode: true,
