@@ -22,12 +22,10 @@ const requests = {
       .set("authorization", sessionStorage.getItem("authorization"))
       .then(responseBody)
 };
+
+
 const requestsIP = {
   get: url => superagent.get(`${url}`).then(responseBody),
-};
-const requestsNetwork = {
-  get: url => superagent.get(`${ES_URL}`).then(responseBody)
-
 };
 
 const requestES = {
@@ -37,26 +35,20 @@ const requestES = {
 const ES = {
   getAllDocs: () => requestES.get("/_stats" ),
 }
-const SawtoothNetwork = {
-  getNodes: () => requestsNetwork.get(),
-  nodeInfo:(url)=>requestsIP.get()
-};
 
 const Sawtooth = {
   getBlocks: limit => requests.get("/blocks?limit=" + limit),
   getBatches: limit => requests.get("/batches?limit=" + limit),
   getTransactions: limit => requests.get("/transactions?limit=" + limit),
-  getAllTransactions: limit => requests.get("/transactions?limit=1000000"),
+  getAllTransactions: limit => requests.get("/transactions?limit=10"),
   getTransaction: id => requests.get("/transactions/"+id),
   getBlock: id => requests.get("/blocks/"+id),
   getBatch: id => requests.get("/batches/"+id)
-
 };
 
 
 
 export default {
   Sawtooth,
-  SawtoothNetwork,
   ES
 };

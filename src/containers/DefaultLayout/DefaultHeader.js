@@ -16,12 +16,11 @@ class DefaultHeader extends Component {
   render() {
     return (
       <React.Fragment>
-        <AppSidebarToggler className="d-lg-none" display="md" mobile />
+        {/* <AppSidebarToggler className="d-lg-none" display="md" mobile /> */}
         <AppNavbarBrand
-          full={{ src: logo, width: 25, height: 25, alt: '' }}
+          full={{ src: logo, width: 40, height: 40, alt: '' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: '' }}
         />
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="d-md-down-none" navbar style={{paddingLeft:"15px"}}>
           <a href="https://storage.v-chain.vn/ipfs/QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub/#/">          Storage Monitoring
@@ -31,15 +30,14 @@ class DefaultHeader extends Component {
           <UncontrolledDropdown nav direction="down">
             {/* <DropdownToggle nav>
               <img src={'../../assets/logo.png'} className="img-avatar" alt="logo" />
-            </DropdownToggle> */}
-            {/* <DropdownMenu right>
+            </DropdownToggle>
+            <DropdownMenu right>
               <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
               <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
               <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu> */}
           </UncontrolledDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
       </React.Fragment>
     );
   }

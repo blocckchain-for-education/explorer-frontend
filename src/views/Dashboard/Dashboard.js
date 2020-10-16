@@ -3,24 +3,27 @@ import agent from "../../agent";
 import { Link } from "react-router-dom";
 import {
   ButtonGroup,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Col,
+  Card, CardBody, CardHeader, CardTitle,
+  Col, Row,
   Progress,
-  Row,
   Table,
-  Spinner
+  Spinner,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  Input,
+  Button,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from "reactstrap";
 
-import NodesList from "../Networks/NodesList";
+// import Search from "../Search/Search";
 import Transactions from "../Transactions/Transactions";
 import Blocks from "../Blocks/Blocks";
 import Batches from "../Batches/Batches";
 
 import TransactionFamily from "../Transactions/TransactionFamily";
-import NodesMap from "../Networks/NodesMap";
 import TPS24h from "../Transactions/TPS24h";
 
 class Dashboard extends Component {
@@ -37,7 +40,6 @@ class Dashboard extends Component {
       transactions: null,
       transactions_all: null,
       batches: null,
-      networkDropdown: false,
       MAINNET:true,
       indices:null
     };
@@ -48,11 +50,6 @@ class Dashboard extends Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
-  chooseNetwork = () => {
-    this.setState({
-      networkDropdown: !this.state.networkDropdown
-    });
-  };
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected
@@ -92,60 +89,8 @@ class Dashboard extends Component {
       self.getTransactions(10);
       self.getAllTransactions();
       self.getBatches(10);
-      self.getNodes();
       self.countDocuments();
     }, 2000);
-  }
-  async getNodes() {
-    let nodes = [
-      {
-        name: "Washington",
-        country: "JAPAN",
-        countryFlag: "us",
-        regiterTime: "Jul 10, 2019",
-        location: "40.80540,-74.02410",
-        endpoint: "159.65.223.173",
-        usage: parseInt(Math.random() * (30 - 28) + 28),
-        time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
-      },
-      {
-        name: "Camberwell",
-        country: "Malaysia",
-        countryFlag: "gb",
-        regiterTime: "Jul 10, 2019",
-        location: "51.47420,-0.07972",
-        endpoint: "68.183.47.2",
-        usage: parseInt(Math.random() * (30 - 28) + 28),
-        time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
-      },
-      {
-        name: "Hanoi",
-        country: "Viet Nam",
-        location: "40.80540,-74.02410",
-        endpoint: "203.171.20.82",
-        countryFlag: "vn",
-        regiterTime: "Jul 10, 2019",
-        usage: parseInt(Math.random() * (43 - 41) + 41),
-        time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 2) + 2) + " second ago"
-      },
-      {
-        name: "Pioneer",
-        country: "Viet Nam",
-        endpoint: "178.128.217.254",
-        location: "1.32123,103.69500",
-        countryFlag: "sg",
-        regiterTime: "Jul 10, 2019",
-        usage: parseInt(Math.random() * (25 - 24) + 24),
-        time: Date.now(),
-        lastActive: parseInt(Math.random() * (3 - 1) + 1) + " second ago"
-      }
-    ];
-    this.setState({
-      nodes: nodes
-    });
   }
 
   async getBlocks(limit) {
@@ -162,11 +107,7 @@ class Dashboard extends Component {
       transactions: transactions.data
     });
   }
-  changeNetwork = ()=>{
-    this.setState({
-      MAINNET:!this.state.MAINNET
-    })
-  }
+
   async countDocuments() {
     let countDocs = await agent.ES.getAllDocs();
     
@@ -217,7 +158,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  TPS/All time high:
+                  Total nodes:
                   <span className="text-value">12/1024</span>
                 </div>
               </CardBody>
@@ -235,7 +176,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Active account/Total account:
+                  Total transactions:
                   <span className="text-value">100/123</span>
                 </div>
               </CardBody>
@@ -253,7 +194,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Head block:{" "}
+                  Total blocks:{" "}
                   {this.state.blocks ? (
                     <span className="text-value">
                       {this.state.blocks[0].header.block_num}
@@ -277,7 +218,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Total transactions: {"  "}
+                  Total transactions family: {"  "}
                   {this.state.countDocs ? (
                     <span className="text-value">
                       {this.state.countDocs}
@@ -296,18 +237,33 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-
+        <Row>
+          <Col lg={12}>
+            <Card>
+              <CardBody>
+              <InputGroup>
+                <InputGroupButtonDropdown addonType="prepend" >
+                  <DropdownToggle caret />
+                  <DropdownMenu>
+                    <DropdownItem header>Header</DropdownItem>
+                    <DropdownItem disabled>Action</DropdownItem>
+                    <DropdownItem>Another Action</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Another Action</DropdownItem>
+                  </DropdownMenu>
+                </InputGroupButtonDropdown>
+                <Input placeholder="and..." />
+                <InputGroupAddon addonType="append"><Button color="primary">Search</Button></InputGroupAddon>
+              </InputGroup>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
         <Row>
           <Col>
             <Card>
               <CardBody>
                 <Row>
-                  <Col xs="12" sm="6" lg="6">
-                    <CardTitle className="mb-0">
-                      Transactions Per App (All time)
-                    </CardTitle>
-                    <div className="small text-muted">October 2 2019</div>
-                  </Col>
                   <Col xs="12" sm="6" lg="6">
                     <CardTitle className="mb-0">
                       Transactions family (1000 txs){" "}
@@ -316,9 +272,9 @@ class Dashboard extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs="12" sm="6" lg="6">
+                  {/* <Col xs="12" sm="6" lg="6">
                     <TPS24h indices={this.state.indices}></TPS24h>
-                  </Col>
+                  </Col> */}
                   <Col xs="12" sm="6" lg="6">
                     <TransactionFamily
                       transactions={this.state.transactions_all}
@@ -351,12 +307,12 @@ class Dashboard extends Component {
                 <ul>
                   <Transactions transactions={this.state.transactions} />
                 </ul>
-                <Row>
+                {/* <Row>
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-info">
-                      {/* <small className="text-muted"> */}
+                      <small className="text-muted">
                       Realtime batches
-                      {/* </small> */}
+                      </small>
                       <br />
                     </div>
                   </Col>
@@ -364,7 +320,7 @@ class Dashboard extends Component {
                 <div className="progress-group mb-4"></div>
                 <ul>
                   <Batches batches={this.state.batches} />
-                </ul>
+                </ul> */}
                 <Row>
                   <Col xs="12" md="6" xl="6">
                     <div className="callout callout-warning">
@@ -385,31 +341,6 @@ class Dashboard extends Component {
                   <Blocks blocks={this.state.blocks} />
                 </ul>
                 <br />
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Card>
-              <CardHeader>Networks</CardHeader>
-              <CardBody>
-                <Row>
-                  <Col xs="12" md="6" lg="6">
-                    <Table
-                      hover
-                      responsive
-                      className="table-outline mb-0 d-none d-sm-table"
-                    >
-                      <tbody>
-                        <NodesList nodes={nodes}></NodesList>
-                      </tbody>
-                    </Table>
-                  </Col>
-                  <Col xs="12" md="6" lg="6">
-                    <NodesMap></NodesMap>
-                  </Col>
-                </Row>
               </CardBody>
             </Card>
           </Col>
