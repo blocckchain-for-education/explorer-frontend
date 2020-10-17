@@ -43,7 +43,8 @@ const Sawtooth = {
   getAllTransactions: limit => requests.get("/transactions?limit=10"),
   getTransaction: id => requests.get("/transactions/"+id),
   getBlock: id => requests.get("/blocks/"+id),
-  getBatch: id => requests.get("/batches/"+id)
+  getBatch: id => requests.get("/batches/"+id),
+  getPeers: limit => requests.get("/peers")
 };
 
 

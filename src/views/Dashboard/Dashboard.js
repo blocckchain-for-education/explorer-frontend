@@ -40,6 +40,7 @@ class Dashboard extends Component {
       transactions: null,
       transactions_all: null,
       batches: null,
+      peers: null,
       MAINNET:true,
       indices:null
     };
@@ -61,9 +62,11 @@ class Dashboard extends Component {
     this.getBlocks(10);
     this.getTransactions(10);
     this.getAllTransactions();
-    this.getBatches(10);
+    this.getPeers();
+    // this.getBatches(10);
     // this.getNodes();
   };
+
   handleOpen = () => {
     this.sendMessage('{"action":"subscribe"}');
   };
@@ -88,8 +91,9 @@ class Dashboard extends Component {
       self.getBlocks(10);
       self.getTransactions(10);
       self.getAllTransactions();
-      self.getBatches(10);
+      // self.getBatches(10);
       self.countDocuments();
+      self.getPeers();
     }, 2000);
   }
 
@@ -129,6 +133,14 @@ class Dashboard extends Component {
       batches: batches.data
     });
   }
+
+  async getPeers() {
+    let peers = await agent.Sawtooth.getPeers();
+    this.setState({
+      peers: peers.data
+    });
+  }
+
   render() {
     let nodes = this.state.nodes;
     return (
@@ -158,8 +170,14 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Total nodes:
-                  <span className="text-value">12/1024</span>
+                  Total nodes:{" "}
+                  {/* {this.state.transactions ? (
+                    <span className="text-value">
+                      {this.state.peers.peers.length}
+                    </span>
+                  ) : (
+                    <span className="text-value">Loading</span>
+                  )} */}
                 </div>
               </CardBody>
               <div
@@ -176,8 +194,14 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right"></ButtonGroup>
                 <div>
-                  Total transactions:
-                  <span className="text-value">100/123</span>
+                  Total transactions: {" "}
+                  {this.state.transactions ? (
+                    <span className="text-value">
+                      {this.state.transactions.length}
+                    </span>
+                  ) : (
+                    <span className="text-value">Loading</span>
+                  )}
                 </div>
               </CardBody>
               <div
