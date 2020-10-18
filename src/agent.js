@@ -38,7 +38,7 @@ const ES = {
 
 const Sawtooth = {
   getBlocks: limit => requests.get("/blocks?limit=" + limit),
-  getBatches: limit => requests.get("/batches?limit=" + limit),
+  // getBatches: limit => requests.get("/batches?limit=" + limit),
   getTransactions: limit => requests.get("/transactions?limit=" + limit),
   getAllTransactions: limit => requests.get("/transactions?limit=10"),
   getTransaction: id => requests.get("/transactions/"+id),

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import agent from "../../agent";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
   ButtonGroup,
   Card, CardBody, CardHeader, CardTitle,
@@ -21,7 +21,7 @@ import {
 // import Search from "../Search/Search";
 import Transactions from "../Transactions/Transactions";
 import Blocks from "../Blocks/Blocks";
-import Batches from "../Batches/Batches";
+// import Batches from "../Batches/Batches";
 
 import TransactionFamily from "../Transactions/TransactionFamily";
 import TPS24h from "../Transactions/TPS24h";
@@ -31,26 +31,58 @@ class Dashboard extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.changeValue = this.changeValue.bind(this);
+    this.search =  this.search.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
 
     this.state = {
+      dropDownValue: 'Select',
       dropdownOpen: false,
+      id: '',
       radioSelected: 2,
       blocks: null,
       transactions: null,
       transactions_all: null,
-      batches: null,
+      // batches: null,
       peers: null,
       MAINNET:true,
-      indices:null
+      indices:null,
+      redirect: false
     };
   }
 
-  toggle() {
+  redirect() {
+    this.setState({
+      redirect: true
+    })
+  }
+
+  search(e) {
+    switch(this.state.dropDownValue) {
+      case('block'):
+        this.getBlock(this.state.id);
+        break;
+      case('transaction'):
+        this.getTransaction(this.state.id);
+        return <Redirect to='/transactions/:this.state.id' />;
+        break;
+      default:
+        break;
+    }
+  }
+
+  toggle(event) {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
   }
+
+  changeValue(e) {
+    this.setState({
+      dropDownValue: e.target.value
+    })
+  }
+
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected
@@ -112,6 +144,25 @@ class Dashboard extends Component {
     });
   }
 
+  async getBlock(id) {
+    let block = await agent.Sawtooth.getBlock(id);
+    if (block) {
+      //TODO: Redirect neu ton tai block
+          return <Redirect to={{
+            pathname: '/blocks',
+            state: { id: id }
+          }} />
+    }
+  }
+
+  async getTransaction(id) {
+    let transaction = await agent.Sawtooth.getTransaction(id);
+    if (transaction) {
+      //TODO: Redirect neu ton tai transaction
+      return `<Redirect to="/transactions/${id}" />`;
+    }
+  }
+ 
   async countDocuments() {
     let countDocs = await agent.ES.getAllDocs();
     
@@ -127,12 +178,13 @@ class Dashboard extends Component {
       transactions_all: transactions.data
     });
   }
-  async getBatches(limit) {
-    let batches = await agent.Sawtooth.getBatches(limit);
-    this.setState({
-      batches: batches.data
-    });
-  }
+  
+  // async getBatches(limit) {
+  //   let batches = await agent.Sawtooth.getBatches(limit);
+  //   this.setState({
+  //     batches: batches.data
+  //   });
+  // }
 
   async getPeers() {
     let peers = await agent.Sawtooth.getPeers();
@@ -266,18 +318,17 @@ class Dashboard extends Component {
             <Card>
               <CardBody>
               <InputGroup>
-                <InputGroupButtonDropdown addonType="prepend" >
-                  <DropdownToggle caret />
-                  <DropdownMenu>
-                    <DropdownItem header>Header</DropdownItem>
-                    <DropdownItem disabled>Action</DropdownItem>
-                    <DropdownItem>Another Action</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>Another Action</DropdownItem>
-                  </DropdownMenu>
+                <InputGroupButtonDropdown addonType="prepend" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <DropdownToggle caret>
+                  {this.state.dropDownValue}
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem value="block" onClick={this.changeValue}>Block ID</DropdownItem>
+                  <DropdownItem value="transaction" onClick={this.changeValue}>Transaction ID</DropdownItem>
+                </DropdownMenu>
                 </InputGroupButtonDropdown>
-                <Input placeholder="and..." />
-                <InputGroupAddon addonType="append"><Button color="primary">Search</Button></InputGroupAddon>
+                <Input placeholder="ID..." name="id" type="text" onChange={(e) => this.state.id=e.target.value}/>
+                <InputGroupAddon addonType="append"><Button color="primary" onClick={this.search}>Search</Button></InputGroupAddon>
               </InputGroup>
               </CardBody>
             </Card>
