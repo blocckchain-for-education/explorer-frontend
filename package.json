@@ -59,7 +59,8 @@
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "globals": { "_": true }
   },
   "browserslist": [
     ">0.2%",

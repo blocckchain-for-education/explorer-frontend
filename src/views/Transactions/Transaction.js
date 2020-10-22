@@ -38,13 +38,13 @@ class Transaction extends Component {
     }
 
     return (
-      <div className="animated fadeIn" style={{"fontSize":"11px"}}>
+      <div className="animated fadeIn" style={{"fontSize":"14px"}}>
         <Row>
           <Col lg={12}>
             <Card>
               <CardHeader>
+                <i className="icon-info pr-1"></i>Transaction ID:{" "}
                 <strong>
-                  <i className="icon-info pr-1"></i>Transaction id:{" "}
                   {this.props.match.params.id}
                 </strong>
               </CardHeader>
@@ -52,7 +52,7 @@ class Transaction extends Component {
                 <Table responsive striped hover>
                   <tbody>
                     <tr>
-                      <td>txid</td>
+                      <td>Transaction ID</td>
                       <td>
                         <strong>{transaction.header_signature}</strong>
                       </td>
@@ -82,7 +82,7 @@ class Transaction extends Component {
                       </td>
                     </tr>
                     <tr>
-                      <td>Payload_sha512</td>
+                      <td>Payload</td>
                       <td>
                         <strong>{transaction.header.payload_sha512}</strong>
                       </td>

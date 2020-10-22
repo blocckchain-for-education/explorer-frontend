@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container,Spinner,Row,Col } from 'reactstrap';
+import Search from "../../views/Search/Search";
 
 import {
   AppAside,
@@ -54,7 +55,7 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar> */}
           <main className="main">
-            <AppBreadcrumb appRoutes={routes} router={router}/>
+          <AppBreadcrumb appRoutes={routes} router={router} />
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>

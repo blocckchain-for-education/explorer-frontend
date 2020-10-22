@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {  UncontrolledDropdown, Nav } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/logo.png'
 import sygnet from '../../assets/logo.png'
+import Search from '../../views/Search/Search';
 
 const propTypes = {
   children: PropTypes.node,
@@ -20,11 +22,13 @@ class DefaultHeader extends Component {
         <AppNavbarBrand
           full={{ src: logo, width: 40, height: 40, alt: '' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: '' }}
-        />
+        >
+          
+
+        </AppNavbarBrand>
 
         <Nav className="d-md-down-none" navbar style={{paddingLeft:"15px"}}>
-          <a href="https://storage.v-chain.vn/ipfs/QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub/#/">          Storage Monitoring
-          </a>
+          <Link to="https://storage.v-chain.vn/ipfs/QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub/#/">Monreb Explorer</Link>
         </Nav>
         <Nav className="ml-auto" navbar>
           <UncontrolledDropdown nav direction="down">

@@ -1,23 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Table,Row,Col,Spinner } from "reactstrap";
+import { Card, Table,Row,Col,Spinner, CardBody, CardHeader, CardFooter, Pagination, PaginationLink, PaginationItem, Input, InputGroup, InputGroupAddon, InputGroupText, Button, ButtonGroup } from "reactstrap";
 import agent from "../../agent";
 
 function TransactionRow(props) {
   const transaction = props.transaction;
   const txLink = `/transactions/${transaction.header_signature}`;
-
-  const getBadge = status => {
-    return status === "Active"
-      ? "success"
-      : status === "Inactive"
-      ? "secondary"
-      : status === "Pending"
-      ? "warning"
-      : status === "Banned"
-      ? "danger"
-      : "primary";
-  };
 
   return (
     <tr key={transaction.header_signature.toString()}>
@@ -31,29 +19,24 @@ function TransactionRow(props) {
       </td>
       <td>{transaction.header.family_version}</td>
       <td>{transaction.header.signer_public_key.substring(0, 15)}...</td>
-      <td>{transaction.payload.substring(0, 100)}...</td>
-      <td>
-        <Link to={txLink}>
-          <Badge color={getBadge(transaction.status)}>
-            {transaction.status}
-          </Badge>
-        </Link>
-      </td>
+      <td>{transaction.payload.substring(0, 75)}...</td>
     </tr>
   );
 }
+
+
 
 class Transactions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: null
+      transactions: null,
     };
   }
   componentDidMount() {
-    this.getTransactions();
+    this.getAllTransactions();
   }
-  async getTransactions() {
+  async getAllTransactions() {
     let transactions = await agent.Sawtooth.getAllTransactions();
     this.setState({
       transactions: transactions.data
@@ -73,24 +56,32 @@ class Transactions extends Component {
         </Row>
       );
     }
+
     return (
       <div className="animated fadeIn">
-        <Table responsive hover>
-          <thead>
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">App</th>
-              <th scope="col">App version</th>
-              <th scope="col">Signer Public Key</th>
-              <th scope="col">Payload</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactionsData.map((transaction, index) => (
-              <TransactionRow key={index} transaction={transaction} />
-            ))}
-          </tbody>
-        </Table>
+        <Card>
+          <CardHeader>
+            All Transactions
+          </CardHeader>
+          <CardBody>
+            <Table responsive hover>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">App</th>
+                  <th scope="col">App version</th>
+                  <th scope="col">Signer Public Key</th>
+                  <th scope="col">Payload</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactionsData.map((transaction, index) => (
+                  <TransactionRow key={index} transaction={transaction} />
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+        </Card> 
       </div>
     );
   }

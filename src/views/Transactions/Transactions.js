@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Table,Spinner,Row,Col } from "reactstrap";
+import { Badge, Table,Spinner,Row,Col, CardBody } from "reactstrap";
 
 function TransactionRow(props) {
   const transaction = props.transaction;
@@ -59,22 +59,26 @@ class Transactions extends Component {
     }
     return (
       <div className="animated fadeIn" style={{"fontSize":"11px"}}>
-        <Table responsive hover>
-          <thead>
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">App</th>
-              <th scope="col">App version</th>
-              <th scope="col">Signer Public Key</th>
-              <th scope="col">Payload</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactionsData.map((transaction, index) => (
-              <TransactionRow key={index} transaction={transaction} />
-            ))}
-          </tbody>
-        </Table>
+        <Card>
+          <CardBody>
+            <Table responsive hover>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">App</th>
+                  <th scope="col">App version</th>
+                  <th scope="col">Signer Public Key</th>
+                  <th scope="col">Payload</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactionsData.map((transaction, index) => (
+                  <TransactionRow key={index} transaction={transaction} />
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+        </Card>
       </div>
     );
   }

@@ -5,6 +5,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 const ROOT_URL = config.ROOT_URL;
 const ES_URL = config.ES_URL;
+const APIKEY = config.APIKEY;
 
 
 const responseBody = res => {
@@ -37,19 +38,32 @@ const ES = {
 }
 
 const Sawtooth = {
-  getBlocks: limit => requests.get("/blocks?limit=" + limit),
-  // getBatches: limit => requests.get("/batches?limit=" + limit),
-  getTransactions: limit => requests.get("/transactions?limit=" + limit),
-  getAllTransactions: limit => requests.get("/transactions?limit=10"),
-  getTransaction: id => requests.get("/transactions/"+id),
   getBlock: id => requests.get("/blocks/"+id),
-  getBatch: id => requests.get("/batches/"+id),
+  getBlocks: limit => requests.get("/blocks?limit=" + limit),
+  getAllBlocks: limit => requests.get("/blocks"),
+
+  getTransaction: id => requests.get("/transactions/"+id),
+  getTransactions: limit => requests.get("/transactions?limit=" + limit),
+  getAllTransactions: limit => requests.get("/transactions"),
+
   getPeers: limit => requests.get("/peers")
 };
+
+const requestApp = {
+  get: url => superagent
+                .get(url)
+                .set("Authorization", APIKEY)
+                .then(responseBody)
+}
+
+const AppInfo = {
+  getInfo: url => requestApp.get("https://v-chain.vn/appservice/v1/apps")
+}
 
 
 
 export default {
   Sawtooth,
-  ES
+  ES,
+  AppInfo
 };
