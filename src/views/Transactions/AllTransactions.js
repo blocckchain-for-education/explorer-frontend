@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Card, Table,Row,Col,Spinner, CardBody, CardHeader, CardFooter, Pagination, PaginationLink, PaginationItem, Input, InputGroup, InputGroupAddon, InputGroupText, Button, ButtonGroup } from "reactstrap";
+import { Card, Table, Row, Col, Spinner, CardBody, CardHeader } from "reactstrap";
 import agent from "../../agent";
 
 function TransactionRow(props) {

@@ -1,6 +1,6 @@
 import React, { Component} from "react";
 import agent from "../../agent";
-import { Card, CardBody, Spinner ,CardFooter, Button, Table, Row, Col, CardHeader, ButtonGroup, Progress, Media, CardImg } from "reactstrap";
+import { Card, CardBody, Spinner , Table, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import nodes from "../../assets/nodes.svg";
 import app from "../../assets/app.svg";
@@ -79,7 +79,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={nodes} width="50px"/> 
+                                            <img src={nodes} width="50px" alt="nodes"/> 
                                         </td>
                                         <td><h5 className="text-muted">Total nodes</h5></td>
                                     </tr>
@@ -107,7 +107,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={transaction} width="50px"/> 
+                                            <img src={transaction} width="50px" alt="transactions"/> 
                                         </td>
                                         <td><Link to="/transactions" className="text-muted"><h5>Total transactions</h5></Link></td>
                                     </tr>
@@ -135,7 +135,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={cubes} width="50px"/> 
+                                            <img src={cubes} width="50px" alt="blocks"/> 
                                         </td>
                                         <td><Link to="/blocks" className="text-muted"><h5>Total blocks</h5></Link></td>
                                     </tr>
@@ -143,7 +143,7 @@ class Info extends Component {
                                         <td>
                                             {this.state.blocks ? (
                                                 <h5 className="text-primary animated fadeIn">
-                                                    {this.state.blocks[0].header.block_num + " blocks"}
+                                                    {parseInt(this.state.blocks[0].header.block_num) + 1 + " blocks"}
                                                 </h5>
                                             ) : (
                                                 this.loading()
@@ -163,7 +163,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={app} width="50px"/> 
+                                            <img src={app} width="50px" alt="transaction_family"/> 
                                         </td>
                                         <td><h5 className="text-muted">Total transactions family</h5></td>
                                     </tr>

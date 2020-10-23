@@ -20,7 +20,7 @@ function BlockRow(props) {
                 </Link>
             </td>
             <td>
-                {block.header.previous_block_id != "0000000000000000" ? (
+                {block.header.previous_block_id !== "0000000000000000" ? (
                     <Link to={"/blocks/" + block.header.previous_block_id}>
                         {block.header.previous_block_id.substring(0,15) + "..."}
                     </Link>

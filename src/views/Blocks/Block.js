@@ -54,35 +54,35 @@ class Block extends Component {
               <CardBody>
                 <Table responsive striped hover>
                   <tbody>
-                    <tr>
+                    <tr key={block.header_signature}>
                       <td>Block ID</td>
                       <td>
                         <strong>{block.header_signature}</strong>
                       </td>
                     </tr>
                     
-                    <tr>
+                    <tr key={block.header.previous_block_id}>
                       <td>Previous Block ID</td>
                       <td>
                         <strong>{block.header.previous_block_id}</strong>
                       </td>
                     </tr>
 
-                    <tr>
+                    <tr key={block.header.block_num}>
                       <td>Height</td>
                       <td>
                         <strong>{block.header.block_num}</strong>
                       </td>
                     </tr>
                    
-                    <tr>
+                    <tr key={block.header.signer_public_key}>
                       <td>Signer Public Key</td>
                       <td>
                         <strong>{block.header.signer_public_key}</strong>
                       </td>
                     </tr>
 
-                    <tr>
+                    <tr key={block.header.consensus}>
                       <td>Consensus</td>
                       <td>
                         <strong>{block.header.consensus}</strong>
@@ -108,7 +108,7 @@ class Block extends Component {
                   <tbody>
                    {block.batches[0].header.transaction_ids.map(transaction_id=>{
                      return(
-                      <tr>
+                      <tr key={transaction_id}>
                       <td>
                       <Link to={`/transactions/${transaction_id}`}>{transaction_id}</Link>
                       </td>

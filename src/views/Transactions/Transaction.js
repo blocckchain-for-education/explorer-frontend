@@ -51,37 +51,37 @@ class Transaction extends Component {
               <CardBody>
                 <Table responsive striped hover>
                   <tbody>
-                    <tr>
+                    <tr key={transaction.header_signature}>
                       <td>Transaction ID</td>
                       <td>
                         <strong>{transaction.header_signature}</strong>
                       </td>
                     </tr>
-                    <tr>
+                    <tr key={transaction.header.family_name}>
                       <td>Transaction Family</td>
                       <td>
                         <strong>{transaction.header.family_name}</strong>
                       </td>
                     </tr>
-                    <tr>
+                    <tr key={transaction.header.family_version}>
                       <td>Transaction Family Version</td>
                       <td>
                         <strong>{transaction.header.family_version}</strong>
                       </td>
                     </tr>
-                    <tr>
+                    <tr key={transaction.header.signer_public_key}>
                       <td>Signer Public Key</td>
                       <td>
                         <strong>{transaction.header.signer_public_key}</strong>
                       </td>
                     </tr>
-                    <tr>
+                    <tr key={transaction.header.nonce}>
                       <td>Nonce</td>
                       <td>
                         <strong>{transaction.header.nonce}</strong>
                       </td>
                     </tr>
-                    <tr>
+                    <tr key={transaction.header.payload_sha512}>
                       <td>Payload</td>
                       <td>
                         <strong>{transaction.header.payload_sha512}</strong>
@@ -106,7 +106,7 @@ class Transaction extends Component {
                   <tbody>
                    {transaction.header.inputs.map(input=>{
                      return(
-                      <tr>
+                      <tr key={Math.random()}>
                       <td>
                         <strong>{input}</strong>
                       </td>
@@ -130,7 +130,7 @@ class Transaction extends Component {
                   <tbody>
                   {transaction.header.outputs.map(output=>{
                      return(
-                      <tr>
+                      <tr key={output}>
                       <td>
                         <strong>{output}</strong>
                       </td>

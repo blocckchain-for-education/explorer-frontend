@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Spinner,Row,Col, CardBody, Card } from 'reactstrap';
-import agent from '../../agent';
 import _ from 'lodash';
 
 

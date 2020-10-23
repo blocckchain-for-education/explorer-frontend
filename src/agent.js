@@ -25,9 +25,9 @@ const requests = {
 };
 
 
-const requestsIP = {
-  get: url => superagent.get(`${url}`).then(responseBody),
-};
+// const requestsIP = {
+//   get: url => superagent.get(`${url}`).then(responseBody),
+// };
 
 const requestES = {
   get: url => superagent.get(`${ES_URL}${url}`).then(responseBody)

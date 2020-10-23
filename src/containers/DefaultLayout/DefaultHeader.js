@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {  UncontrolledDropdown, Nav } from 'reactstrap';
+import { Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import { AppNavbarBrand } from '@coreui/react';
 import logo from '../../assets/logo.png'
 import sygnet from '../../assets/logo.png'
-import Search from '../../views/Search/Search';
 
 const propTypes = {
   children: PropTypes.node,
@@ -21,26 +20,11 @@ class DefaultHeader extends Component {
         {/* <AppSidebarToggler className="d-lg-none" display="md" mobile /> */}
         <AppNavbarBrand
           full={{ src: logo, width: 40, height: 40, alt: '' }}
-          minimized={{ src: sygnet, width: 30, height: 30, alt: '' }}
-        >
-          
-
+          minimized={{ src: sygnet, width: 30, height: 30, alt: '' }} >
         </AppNavbarBrand>
 
         <Nav className="d-md-down-none" navbar style={{paddingLeft:"15px"}}>
           <Link to="https://storage.v-chain.vn/ipfs/QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub/#/">Monreb Explorer</Link>
-        </Nav>
-        <Nav className="ml-auto" navbar>
-          <UncontrolledDropdown nav direction="down">
-            {/* <DropdownToggle nav>
-              <img src={'../../assets/logo.png'} className="img-avatar" alt="logo" />
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
-              <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-              <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
-            </DropdownMenu> */}
-          </UncontrolledDropdown>
         </Nav>
       </React.Fragment>
     );

@@ -1,9 +1,8 @@
 import React, { Component} from "react";
-import { Alert, Card } from "reactstrap";
+import { Card } from "reactstrap";
 import agent from "../../agent";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import {
-  ButtonGroup, 
   InputGroup,
   InputGroupAddon,
   InputGroupButtonDropdown,
@@ -23,6 +22,7 @@ class Search extends Component {
         this.search =  this.search.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.changeValue = this.changeValue.bind(this);
+        this.inputValue = this.inputValue.bind(this);
 
         this.state = {
             id: null,
@@ -59,6 +59,12 @@ class Search extends Component {
         }
     }
 
+    inputValue(e) {
+        this.setState({
+            id: e.target.value
+        })
+    }
+
     async getBlock(id) {
         try {
             let block = await agent.Sawtooth.getBlock(id);
@@ -66,6 +72,10 @@ class Search extends Component {
                 this.setState({
                     block: block.data
                 });
+            } else {
+                this.setState({
+                    message: "Block Not Found! Please check the ID"
+                })
             }
         }
          catch (error) {
@@ -82,6 +92,10 @@ class Search extends Component {
                 this.setState({
                     transaction: transaction.data
                 });
+            } else {
+                this.setState({
+                    message: "Transaction Not Found! Please check the ID"
+                })
             }
         } catch (error) {
             this.setState({
@@ -112,10 +126,10 @@ class Search extends Component {
                             <DropdownItem value="Transaction" onClick={this.changeValue}>Transaction</DropdownItem>
                         </DropdownMenu>
                     </InputGroupButtonDropdown>
-                    <Input placeholder="Search by Block / Transaction" name="id" type="text" onChange={(e) => this.state.id=e.target.value}/>
+                    <Input placeholder="Search by Block / Transaction" name="id" type="text" onChange={this.inputValue}/>
                     <InputGroupAddon addonType="append">
                         <Button color="primary" onClick={this.search}>
-                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <i className="fa fa-search" aria-hidden="true"></i>
                         </Button>
                     </InputGroupAddon>
                 </InputGroup>

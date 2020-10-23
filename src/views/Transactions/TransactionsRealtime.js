@@ -1,6 +1,6 @@
 import React, { Component} from "react";
 import agent from "../../agent";
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, Row, Table, Spinner } from "reactstrap";
+import { Col, Row, Table, Spinner } from "reactstrap";
 import { Link } from "react-router-dom"
 
 
@@ -47,24 +47,26 @@ class TransactionRealtime extends Component {
 
         return <div className="animated fadeIn">
             <Table borderless>
-                <tr>
-                    <th>Transaction ID</th>
-                    <th>Transaction Family</th>
-                    <th>Version</th>
-                    <th>Payload</th>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Transaction Family</th>
+                        <th>Version</th>
+                        <th>Payload</th>
+                    </tr>
 
-                {this.state.transactions.map((transaction) => {
-                        return (
-                            <tr>
-                                <td><Link to={"/transactions/" + transaction['header_signature']}>{transaction['header_signature'].slice(0,15) + '...'}</Link></td>
-                                <td>{transaction['header']['family_name']}</td>
-                                <td>{transaction['header']['family_version']}</td>
-                                <td>{transaction['payload'].slice(0,20) + '...'}</td>
-                            </tr>
-                        )
-                    })
-                }
+                    {this.state.transactions.map((transaction) => {
+                            return (
+                                <tr key={transaction['header_signature']}>
+                                    <td><Link to={"/transactions/" + transaction['header_signature']}>{transaction['header_signature'].slice(0,15) + '...'}</Link></td>
+                                    <td>{transaction['header']['family_name']}</td>
+                                    <td>{transaction['header']['family_version']}</td>
+                                    <td>{transaction['payload'].slice(0,20) + '...'}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
             </Table>
         </div>
     }

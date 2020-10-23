@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Table,Spinner,Row,Col, CardBody } from "reactstrap";
+import { Badge, Table, Spinner, Row, Col, CardBody } from "reactstrap";
 
 function TransactionRow(props) {
   const transaction = props.transaction;

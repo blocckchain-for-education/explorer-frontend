@@ -1,6 +1,6 @@
 import React, { Component} from "react";
 import agent from "../../agent";
-import { Card, CardBody, CardFooter, Button, Table, Row, Col, CardHeader, Spinner } from "reactstrap";
+import { Table, Row, Col, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 
 class BlocksRealtime extends Component {
@@ -48,22 +48,24 @@ class BlocksRealtime extends Component {
 
         return <div className="animated fadeIn">
             <Table borderless>
-                    <tr>
-                        <th>Height</th>
-                        <th>Block ID</th>
-                        <th>Previous Block ID</th>
-                        <th>Signer Public Key</th>
-                    </tr>
-                    {this.state.blocks.map((block) => {
-                        return (
-                            <tr>
-                                <td className="text-muted">{"#" + block['header']['block_num']}</td>
-                                <td><Link to={"/blocks/" + block['header_signature']}>{block['header_signature'].substring(0,15) + "..."}</Link></td>
-                                <td><Link to={"/blocks/" + block['header']['previous_block_id']}>{block['header']['previous_block_id'].substring(0,15) + "..."}</Link></td>
-                                <td>{block['header']['signer_public_key'].substring(0,15) + "..."}</td>
-                            </tr>
-                        )
-                    })}
+                    <tbody>
+                        <tr>
+                            <th>Height</th>
+                            <th>Block ID</th>
+                            <th>Previous Block ID</th>
+                            <th>Signer Public Key</th>
+                        </tr>
+                        {this.state.blocks.map((block) => {
+                            return (
+                                <tr key={block['header_signature']}>
+                                    <td className="text-muted">{"#" + block['header']['block_num']}</td>
+                                    <td><Link to={"/blocks/" + block['header_signature']}>{block['header_signature'].substring(0,15) + "..."}</Link></td>
+                                    <td><Link to={"/blocks/" + block['header']['previous_block_id']}>{block['header']['previous_block_id'].substring(0,15) + "..."}</Link></td>
+                                    <td>{block['header']['signer_public_key'].substring(0,15) + "..."}</td>
+                                </tr> 
+                            )
+                        })}
+                </tbody>
             </Table>
         </div> 
         
