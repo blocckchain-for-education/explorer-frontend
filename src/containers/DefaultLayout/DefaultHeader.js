@@ -22,10 +22,6 @@ class DefaultHeader extends Component {
           full={{ src: logo, width: 40, height: 40, alt: '' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: '' }} >
         </AppNavbarBrand>
-
-        <Nav className="d-md-down-none" navbar style={{paddingLeft:"15px"}}>
-          <Link to="https://storage.v-chain.vn/ipfs/QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub/#/">Monreb Explorer</Link>
-        </Nav>
       </React.Fragment>
     );
   }
