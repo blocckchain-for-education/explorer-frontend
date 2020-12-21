@@ -27,7 +27,7 @@ class Dashboard extends Component {
     };
 
     async getTransactions() {
-        let transactions = await agent.Sawtooth.getAllTransactions();
+        let transactions = await agent.Sawtooth.getAllTransactionsReal();
         this.setState({
             transactions: transactions.data
         });

@@ -1,6 +1,7 @@
 import superagentPromise from "superagent-promise";
 import _superagent from "superagent";
 import config from "./config/config";
+import { element } from "prop-types";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const ROOT_URL = config.ROOT_URL;
@@ -9,7 +10,7 @@ const APIKEY = config.APIKEY;
 
 
 const responseBody = res => {
-    return res.body;
+  return res.body;
 };
 
 const requests = {
@@ -34,26 +35,68 @@ const requestES = {
 
 };
 const ES = {
-  getAllDocs: () => requestES.get("/_stats" ),
+  getAllDocs: () => requestES.get("/_stats"),
 }
 
 const Sawtooth = {
-  getBlock: id => requests.get("/blocks/"+id),
+  getBlock: id => requests.get("/blocks/" + id),
   getBlocks: limit => requests.get("/blocks?limit=" + limit),
   getAllBlocks: limit => requests.get("/blocks"),
+  getAllBlocksReal: async (limit) => {
+    let allBlocks = await requests.get("/blocks")
+    let previous_block_id = allBlocks.data[allBlocks.data.length - 1].header.previous_block_id
+    let genesis_block_id = "0000000000000000"
 
-  getTransaction: id => requests.get("/transactions/"+id),
+    while (previous_block_id != genesis_block_id) {
+      let blocks = await requests.get("/blocks?head=" + previous_block_id)
+      
+      allBlocks.data = allBlocks.data.concat(blocks.data)
+      previous_block_id = blocks.data[blocks.data.length - 1].header.previous_block_id
+    }
+   
+    return allBlocks
+  },
+
+  getTransaction: id => requests.get("/transactions/" + id),
   getTransactions: limit => requests.get("/transactions?limit=" + limit),
   getAllTransactions: limit => requests.get("/transactions"),
+  getAllTransactionsReal: async (limit) => {
+
+    let transactions = {}
+    transactions.data = []
+
+    let blocks = await requests.get("/blocks")
+    for (let element of blocks.data) {
+      let batches = element['batches']
+      for (let batch of batches) {
+        transactions.data = transactions.data.concat(batch.transactions)
+      }
+    }
+    
+    let previous_block_id = blocks.data[blocks.data.length - 1].header.previous_block_id
+    let genesis_block_id = "0000000000000000"
+    while (previous_block_id != genesis_block_id) {
+      let blocks = await requests.get("/blocks?head=" + previous_block_id)
+      for (let element of blocks.data) {
+        let batches = element['batches']
+        for (let batch of batches) {
+          transactions.data = transactions.data.concat(batch.transactions)
+        }
+      }
+      previous_block_id = blocks.data[blocks.data.length - 1].header.previous_block_id
+    }
+   
+    return transactions
+  },
 
   getPeers: limit => requests.get("/peers")
 };
 
 const requestApp = {
   get: url => superagent
-                .get(url)
-                .set("Authorization", APIKEY)
-                .then(responseBody)
+    .get(url)
+    .set("Authorization", APIKEY)
+    .then(responseBody)
 }
 
 const AppInfo = {

@@ -1,6 +1,6 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import agent from "../../agent";
-import { Card, CardBody, Spinner , Table, Row, Col } from "reactstrap";
+import { Card, CardBody, Spinner, Table, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import nodes from "../../assets/nodes.svg";
 import app from "../../assets/app.svg";
@@ -19,17 +19,17 @@ class Info extends Component {
         };
     }
 
-    loading = () => 
-        (
+    loading = () =>
+    (
         <Row>
-            <Col sm="12" md={{ size: 6}}>
-            <Spinner
-                color="primary"
-                style={{ width: "25px", height: "25px" }}
-            />
+            <Col sm="12" md={{ size: 6 }}>
+                <Spinner
+                    color="primary"
+                    style={{ width: "25px", height: "25px" }}
+                />
             </Col>
         </Row>
-        );
+    );
 
     async getAllBlocks() {
         let blocks = await agent.Sawtooth.getAllBlocks();
@@ -39,7 +39,7 @@ class Info extends Component {
     }
 
     async getAllTransactions() {
-        let transactions = await agent.Sawtooth.getAllTransactions();
+        let transactions = await agent.Sawtooth.getAllTransactionsReal();
         this.setState({
             transactions: transactions.data
         })
@@ -53,12 +53,15 @@ class Info extends Component {
     }
 
     async getTxFamily() {
-        let txFamily = await agent.AppInfo.getInfo();
+        // let txFamily = await agent.AppInfo.getInfo();
+        // this.setState({
+        //     txFamily: txFamily.data
+        // })
         this.setState({
-            txFamily: txFamily.data
+            txFamily: { length: 1 }
         })
     }
-    
+
     componentDidMount() {
         let self = this;
         setInterval(() => {
@@ -79,7 +82,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={nodes} width="50px" alt="nodes"/> 
+                                            <img src={nodes} width="50px" alt="nodes" />
                                         </td>
                                         <td><h5 className="text-muted">Total nodes</h5></td>
                                     </tr>
@@ -90,8 +93,8 @@ class Info extends Component {
                                                     {this.state.peers.length + 1 + " nodes"}
                                                 </h5>
                                             ) : (
-                                                this.loading()
-                                            )}
+                                                    this.loading()
+                                                )}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -107,7 +110,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={transaction} width="50px" alt="transactions"/> 
+                                            <img src={transaction} width="50px" alt="transactions" />
                                         </td>
                                         <td><Link to="/transactions" className="text-muted"><h5>Total transactions</h5></Link></td>
                                     </tr>
@@ -118,9 +121,9 @@ class Info extends Component {
                                                     {this.state.transactions.length + " transactions"}
                                                 </h5>
                                             ) : (
-                                                this.loading()
-                                            )}
-                                        </td>  
+                                                    this.loading()
+                                                )}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -135,7 +138,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={cubes} width="50px" alt="blocks"/> 
+                                            <img src={cubes} width="50px" alt="blocks" />
                                         </td>
                                         <td><Link to="/blocks" className="text-muted"><h5>Total blocks</h5></Link></td>
                                     </tr>
@@ -146,8 +149,8 @@ class Info extends Component {
                                                     {parseInt(this.state.blocks[0].header.block_num) + 1 + " blocks"}
                                                 </h5>
                                             ) : (
-                                                this.loading()
-                                            )}  
+                                                    this.loading()
+                                                )}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -163,7 +166,7 @@ class Info extends Component {
                                 <tbody>
                                     <tr>
                                         <td rowSpan="2">
-                                            <img src={app} width="50px" alt="transaction_family"/> 
+                                            <img src={app} width="50px" alt="transaction_family" />
                                         </td>
                                         <td><h5 className="text-muted">Total transactions family</h5></td>
                                     </tr>
@@ -171,11 +174,11 @@ class Info extends Component {
                                         <td>
                                             {this.state.txFamily ? (
                                                 <h5 className="text-primary animated fadeIn">
-                                                {this.state.txFamily.length + " transaction family"}
+                                                    {this.state.txFamily.length + " transaction family"}
                                                 </h5>
                                             ) : (
-                                                this.loading()
-                                            )}  
+                                                    this.loading()
+                                                )}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -184,9 +187,6 @@ class Info extends Component {
                     </Card>
                 </Col>
             </Row>
-
-
-
 
         </div>
     }

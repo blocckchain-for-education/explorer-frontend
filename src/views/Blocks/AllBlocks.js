@@ -65,7 +65,7 @@ class AllBlocks extends Component {
         this.getAllBlocks();
       }
       async getAllBlocks() {
-        let blocks = await agent.Sawtooth.getAllBlocks();
+        let blocks = await agent.Sawtooth.getAllBlocksReal();
         this.setState({
           blocks: blocks.data
         });
