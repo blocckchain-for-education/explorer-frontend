@@ -69,7 +69,7 @@ class Dashboard extends Component {
         </Row>
 
         {/* Table Blocks and Transaction */}
-        <Row style={{ fontSize: "14px", marginTop: "48px" }} xs="2">
+        <Row style={{ fontSize: "14px", marginTop: "40px" }} xs="2">
           <Col>
             <Card style={{ height: "680px" }}>
               <CardHeader>
