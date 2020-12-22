@@ -1,51 +1,47 @@
-import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import * as router from 'react-router-dom';
-import { Container,Spinner,Row,Col } from 'reactstrap';
+import React, { Component, Suspense } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import * as router from "react-router-dom";
+import { Container, Spinner, Row, Col } from "reactstrap";
 
 import {
   AppAside,
   AppFooter,
   AppHeader,
   AppBreadcrumb2 as AppBreadcrumb,
-} from '@coreui/react';
+} from "@coreui/react";
 // sidebar nav config
 // routes config
-import routes from '../../routes';
+import routes from "../../routes";
 
-const DefaultAside = React.lazy(() => import('./DefaultAside'));
-const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
-const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+const DefaultAside = React.lazy(() => import("./DefaultAside"));
+const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
+const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
 class DefaultLayout extends Component {
-
   loading = () => (
     <Row style={{ textAlign: "center" }}>
       <Col sm="12" md={{ size: 6, offset: 3 }}>
-        <Spinner
-          color="primary"
-          style={{ width: "50px", height: "50px" }}
-        />
+        <Spinner color="primary" style={{ width: "50px", height: "50px" }} />
       </Col>
     </Row>
   );
 
   signOut(e) {
-    e.preventDefault()
-    this.props.history.push('/login')
+    e.preventDefault();
+    this.props.history.push("/login");
   }
 
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+        <AppHeader fixed style={{ justifyContent: "flex-start" }}>
+          <Suspense fallback={this.loading()}>
+            <DefaultHeader onLogout={(e) => this.signOut(e)} />
           </Suspense>
         </AppHeader>
         <div className="app-body">
           <main className="main">
-          <AppBreadcrumb appRoutes={routes} router={router} />
+            <AppBreadcrumb appRoutes={routes} router={router} />
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>
@@ -56,10 +52,9 @@ class DefaultLayout extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => (
-                          <route.component {...props} />
-                        )} />
-                    ) : (null);
+                        render={(props) => <route.component {...props} />}
+                      />
+                    ) : null;
                   })}
                   <Redirect from="/" to="/dashboard" />
                 </Switch>
