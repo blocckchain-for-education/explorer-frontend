@@ -39,12 +39,13 @@ class Info extends Component {
     }
 
     async getAllTransactions() {
-        let transactions = await agent.Sawtooth.getAllTransactionsReal();
+        let transactions = await agent.Sawtooth.getAllTransactions();
+        let trans_num = await agent.Sawtooth.getTransactionsNum();
         this.setState({
-            transactions: transactions.data
+            transactions: transactions.data,
+            transaction_num: trans_num.transaction_num,
         })
     }
-
     async getPeers() {
         let peers = await agent.Sawtooth.getPeers();
         this.setState({
@@ -53,13 +54,13 @@ class Info extends Component {
     }
 
     async getTxFamily() {
-        // let txFamily = await agent.AppInfo.getInfo();
-        // this.setState({
-        //     txFamily: txFamily.data
-        // })
+        let txFamily = await agent.Sawtooth.getFamilies();
         this.setState({
-            txFamily: { length: 1 }
+            txFamily: txFamily.families
         })
+        // this.setState({
+        //     txFamily: { length: 2 }
+        // })
     }
 
     componentDidMount() {
@@ -118,7 +119,7 @@ class Info extends Component {
                                         <td>
                                             {this.state.transactions ? (
                                                 <h5 className="text-primary animated fadeIn">
-                                                    {this.state.transactions.length + " transactions"}
+                                                    {this.state.transaction_num + " transactions"}
                                                 </h5>
                                             ) : (
                                                     this.loading()

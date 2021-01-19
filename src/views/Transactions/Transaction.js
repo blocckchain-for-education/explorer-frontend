@@ -166,7 +166,7 @@ class Transaction extends Component {
                 </strong>
               </CardHeader>
               <CardBody>
-                 { window.atob(transaction.payload)}
+                 { transaction.decode_payload}
               </CardBody>
             </Card>
           </Col>

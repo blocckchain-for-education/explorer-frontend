@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 
 const PieChart = props => {
-    let transactions = props.transactions;
-    if(!transactions) {
+    let families = props.families;
+    if(!families) {
       return (
         <Card>
             <CardBody>
@@ -20,12 +20,12 @@ const PieChart = props => {
       )
     }
 
-    let groupByFamily = _.groupBy(transactions,"header.family_name");
+    let groupByFamily = families.families;
     let labels = [];
     let data = [];
     for ( var k in groupByFamily ) {
-      labels.push(k);
-      data.push(groupByFamily[k].length)
+      labels.push(groupByFamily[k].family_name);
+      data.push(groupByFamily[k].total_transaction)
     } 
   
     let barData =  {

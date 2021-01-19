@@ -1,6 +1,6 @@
 if (process.env.REACT_APP_NODE_ENV === "production") {
   module.exports = {
-    ROOT_URL: "http://localhost:9000/http://localhost:8008",
+    ROOT_URL: "http://localhost:1998/http://localhost:2398",
     SAWTOOTH_NODE:"localhost:4004",
     ES_URL:"localhost:9200",
     devMode: true,
@@ -9,7 +9,7 @@ if (process.env.REACT_APP_NODE_ENV === "production") {
   
 } else {
   module.exports = {
-    ROOT_URL: "http://localhost:9000/http://localhost:8008",
+    ROOT_URL: "http://localhost:1998/http://localhost:2398",
     devMode: false,
     websocket_url:"ws:localhost:8008/subscriptions",
     ES_URL:"http://localhost:9200",

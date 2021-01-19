@@ -15,7 +15,8 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            transactions: null
+            transactions: null,
+            families:null
         };
     }
     
@@ -27,9 +28,11 @@ class Dashboard extends Component {
     };
 
     async getTransactions() {
-        let transactions = await agent.Sawtooth.getAllTransactionsReal();
+        let transactions = await agent.Sawtooth.getAllTransactions();
+        let families = await agent.Sawtooth.getFamilies();
         this.setState({
-            transactions: transactions.data
+            transactions: transactions.data,
+            families: families
         });
     };
 
@@ -53,10 +56,10 @@ class Dashboard extends Component {
                 {/* Chart */}
                 <Row>
                     <Col style={{height: "250px"}}>
-                        <PieChart transactions={this.state.transactions}/>
+                        <PieChart families={this.state.families}/>
                     </Col>
                     <Col style={{height: "250px"}}>
-                        <BarChart transactions={this.state.transactions}/>
+                        <BarChart families={this.state.families}/>
                     </Col>
                 </Row>
 
