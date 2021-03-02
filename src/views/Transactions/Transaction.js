@@ -172,7 +172,9 @@ class Transaction extends Component {
                   {"  "}Payload decoded:{" "}
                 </strong>
               </CardHeader>
-              <CardBody>{window.atob(transaction.payload)}</CardBody>
+              <CardBody>
+                 { transaction.decode_payload}
+              </CardBody>
             </Card>
           </Col>
         </Row>

@@ -37,7 +37,7 @@ class Transactions extends Component {
     this.getAllTransactions();
   }
   async getAllTransactions() {
-    let transactions = await agent.Sawtooth.getAllTransactionsReal();
+    let transactions = await agent.Sawtooth.getAllTransactions();
     this.setState({
       transactions: transactions.data
     });

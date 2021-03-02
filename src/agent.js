@@ -42,20 +42,8 @@ const Sawtooth = {
   getBlock: id => requests.get("/blocks/" + id),
   getBlocks: limit => requests.get("/blocks?limit=" + limit),
   getAllBlocks: limit => requests.get("/blocks"),
-  getAllBlocksReal: async (limit) => {
-    let allBlocks = await requests.get("/blocks")
-    let previous_block_id = allBlocks.data[allBlocks.data.length - 1].header.previous_block_id
-    let genesis_block_id = "0000000000000000"
-
-    while (previous_block_id != genesis_block_id) {
-      let blocks = await requests.get("/blocks?head=" + previous_block_id)
-      
-      allBlocks.data = allBlocks.data.concat(blocks.data)
-      previous_block_id = blocks.data[blocks.data.length - 1].header.previous_block_id
-    }
-   
-    return allBlocks
-  },
+  getAllBlocksReal: async (limit) => requests.get("/blocks"),
+  getBlocksNum : ()=>requests.get("/blocksNum"),
 
   getTransaction: id => requests.get("/transactions/" + id),
   getTransactions: limit => requests.get("/transactions?limit=" + limit),
@@ -88,8 +76,9 @@ const Sawtooth = {
    
     return transactions
   },
-
-  getPeers: limit => requests.get("/peers")
+  getTransactionsNum: ()=>requests.get("/transactionsNum"),
+  getPeers: limit => requests.get("/peers"),
+  getFamilies : ()=> requests.get("/families")
 };
 
 const requestApp = {
